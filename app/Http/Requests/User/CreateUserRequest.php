@@ -93,4 +93,82 @@ class CreateUserRequest extends FormRequest
         $userable = $this->input('userable');
         return isset($userable['branchId']) ? $userable['branchId'] : 0;
     }
+
+    public function getCategoryIds(): array
+    {
+        $userable = $this->input('userable');
+        return isset($userable['categoryIds']) ? $userable['categoryIds'] : [];
+    }
+
+    public function getBirthday()
+    {
+        $userable = $this->input('userable');
+        return isset($userable['birthday']) ? Carbon::parse($userable['birthday']) : NULL;
+    }
+
+    public function getPassportSeries(): string
+    {
+        $userable = $this->input('userable');
+        return isset($userable['passportSeries']) ? $userable['passportSeries'] : '';
+    }
+
+    public function getPassportNumber(): string
+    {
+        $userable = $this->input('userable');
+        return isset($userable['passportNumber']) ? $userable['passportNumber'] : '';
+    }
+
+    public function getPassportNotes(): string
+    {
+        $userable = $this->input('userable');
+        return isset($userable['passportNotes']) ? $userable['passportNotes'] : '';
+    }
+
+    public function getPassportIssueDate()
+    {
+        $userable = $this->input('userable');
+        return isset($userable['passportIssueDate']) ? Carbon::parse($userable['passportIssueDate']) : NULL;
+    }
+
+    public function getRegistrationAddress(): string
+    {
+        $userable = $this->input('userable');
+        return isset($userable['registrationAddress']) ? $userable['registrationAddress'] : '';
+    }
+
+    public function getPhone(): string
+    {
+        $userable = $this->input('userable');
+        return isset($userable['phoneNumber']) ? preg_replace('|\D|Ui', '', $userable['phoneNumber']) : '';
+    }
+    public function getComment(): string
+    {
+        $userable = $this->input('userable');
+        return isset($userable['comment']) ? $userable['comment'] : '';
+    }
+
+    public function getInn(): string
+    {
+        $userable = $this->input('userable');
+        return isset($userable['inn']) ? $userable['inn'] : '';
+    }
+
+    public function getComplaints(): string
+    {
+        $userable = $this->input('userable');
+        return isset($userable['complaints']) ? $userable['complaints'] : '';
+    }
+
+    public function getLastCheckFssp()
+    {
+        $userable = $this->input('userable');
+        return isset($userable['lastCheckFssp']) ? Carbon::parse($userable['lastCheckFssp']) : NULL;
+    }
+
+    public function getLastCheckEnforcement()
+    {
+        $userable = $this->input('userable');
+        return isset($userable['lastCheckEnforcement']) ? Carbon::parse($userable['lastCheckEnforcement']) : NULL;
+    }
+
 }

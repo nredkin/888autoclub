@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('passport_series')->nullable();
             $table->string('passport_number')->nullable();
             $table->string('passport_notes')->nullable();
-            $table->string('passport_issue_date')->nullable();
+            $table->date('passport_issue_date')->nullable();
             $table->string('inn')->nullable();
             $table->string('registration_address')->nullable();
             $table->text('complaints')->nullable();

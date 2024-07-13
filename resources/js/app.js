@@ -15,6 +15,8 @@ import BranchEditForm from "./components/branches/BranchEditForm.vue";
 import CategoriesList from "./components/categories/CategoriesList.vue";
 import CategoryCreateForm from "./components/categories/CategoryCreateForm.vue";
 import CategoryEditForm from "./components/categories/CategoryEditForm.vue";
+import ClubCardLevelsList from "./components/clubCardLevels/ClubCardLevelsList.vue";
+import CarsList from "./components/cars/CarsList.vue";
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -70,6 +72,18 @@ const router = createRouter({
             name: 'editCategory',
             path: '/categories/:id',
             component: CategoryEditForm
+        },
+        //Уровни карт
+        {
+            name: 'listClubCardLevels',
+            path: '/clubCardLevels',
+            component: ClubCardLevelsList
+        },
+        //Автомобили
+        {
+            name: 'listCars',
+            path: '/cars',
+            component: CarsList
         },
 
 

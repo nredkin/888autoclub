@@ -22,6 +22,10 @@ class Client extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+    public function clubCards()
+    {
+        return $this->hasMany(ClubCard::class);
+    }
     public function getFullName(): string
     {
         return sprintf('%s %s %s', $this->last_name, $this->first_name, $this->middle_name);

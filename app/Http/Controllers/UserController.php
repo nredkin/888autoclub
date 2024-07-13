@@ -26,7 +26,14 @@ class UserController extends Controller
         $user = $this->getUser();
 
 //        if ($user->isAdmin()) {
-            $users = $this->users->with('userable')->newQuery();
+            //$users = $this->users->with('userable')->newQuery();
+        $users = $this->users
+            ->with(['userable' => function ($morphTo) {
+                $morphTo->morphWith([
+                    Client::class => ['clubCards'],
+                ]);
+            }])
+            ->paginate(self::PER_PAGE);
 
 //        } else {
 //            $users = $this->users->newQuery()->where('branch_id', $user->getBranchId());
@@ -39,7 +46,7 @@ class UserController extends Controller
 //                ->orWhere('last_name', 'like', "%{$query}%");
 //        }
 
-        $users = $users->paginate(self::PER_PAGE);
+        //$users = $users->paginate(self::PER_PAGE);
 
         return new JsonResponse(
             [
@@ -82,12 +89,24 @@ class UserController extends Controller
                 'first_name' => $request->getFirstName(),
                 'middle_name' => $request->getMiddleName(),
                 'last_name' => $request->getLastName(),
+                'birthday' => $request->getBirthday(),
+                'passport_series' => $request->getPassportSeries(),
+                'passport_number' => $request->getPassportNumber(),
+                'passport_notes' => $request->getPassportNotes(),
+                'passport_issue_date' => $request->getPassportIssueDate(),
+                'registration_address' => $request->getRegistrationAddress(),
+                'inn' => $request->getInn(),
+                'phone_number' => $request->getPhone(),
+                'comment' => $request->getComment(),
+                'complaints' => $request->getComplaints(),
+                'last_check_fssp' => $request->getLastCheckFssp(),
+                'last_check_enforcement' => $request->getLastCheckEnforcement(),
                  // Add any other client fields here
               ]);
 
                 // Attach categories if provided
-                if ($request->has('category_ids')) {
-                    $userable->categories()->attach($request->input('category_ids'));
+                if ($request->getCategoryIds()) {
+                    $userable->categories()->attach($request->getCategoryIds());
                 }
 
                 $userable->save();
@@ -152,6 +171,18 @@ class UserController extends Controller
                     'first_name' => $request->getFirstName(),
                     'middle_name' => $request->getMiddleName(),
                     'last_name' => $request->getLastName(),
+                    'birthday' => $request->getBirthday(),
+                    'passport_series' => $request->getPassportSeries(),
+                    'passport_number' => $request->getPassportNumber(),
+                    'passport_notes' => $request->getPassportNotes(),
+                    'passport_issue_date' => $request->getPassportIssueDate(),
+                    'registration_address' => $request->getRegistrationAddress(),
+                    'inn' => $request->getInn(),
+                    'phone_number' => $request->getPhone(),
+                    'comment' => $request->getComment(),
+                    'complaints' => $request->getComplaints(),
+                    'last_check_fssp' => $request->getLastCheckFssp(),
+                    'last_check_enforcement' => $request->getLastCheckEnforcement(),
                     // Add any other client fields here
                 ]);
 

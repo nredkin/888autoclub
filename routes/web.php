@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\ActiveController;
 use App\Http\Controllers\BranchController;
+use App\Http\Controllers\CarController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ClubCardController;
+use App\Http\Controllers\ClubCardLevelController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DealController;
 use App\Http\Controllers\EmployeeController;
@@ -62,6 +65,29 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{id}', [CategoryController::class, 'show']);
         Route::put('/{id}', [CategoryController::class, 'update']);
         Route::delete('/{id}', [CategoryController::class, 'delete']);
+    });
+
+    Route::group(['prefix' => 'clubCardLevels'], function () {
+        Route::get('/', [ClubCardLevelController::class, 'list']);
+        Route::get('/dict', [ClubCardLevelController::class, 'dict']);
+        Route::get('/{id}', [ClubCardLevelController::class, 'show']);
+    });
+
+    Route::group(['prefix' => 'clubCards'], function () {
+        Route::get('/{clientId}', [ClubCardController::class, 'index']);
+        Route::post('/', [ClubCardController::class, 'store']);
+        Route::get('/{id}', [ClubCardController::class, 'show']);
+        Route::put('/{id}', [ClubCardController::class, 'update']);
+        Route::delete('/{id}', [ClubCardController::class, 'delete']);
+    });
+
+    Route::group(['prefix' => 'cars'], function () {
+        Route::get('/', [CarController::class, 'list']);
+        Route::get('/dict', [CarController::class, 'dict']);
+        Route::post('/', [CarController::class, 'store']);
+        Route::get('/{id}', [CarController::class, 'show']);
+        Route::put('/{id}', [CarController::class, 'update']);
+        Route::delete('/{id}', [CarController::class, 'delete']);
     });
 
 
