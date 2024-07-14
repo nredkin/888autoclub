@@ -16,8 +16,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         if (app()->environment() === 'local') {
-            $this->createUserWithEmployee('admin@crm.dev', User::ROLE_ADMIN, 'Admin', 'User');
-            $this->createUserWithEmployee('manager@crm.dev', User::ROLE_MANAGER, 'Manager', 'User');
+            $this->createUserWithEmployee('admin@test.dev', User::ROLE_ADMIN, 'Admin', 'User');
+            $this->createUserWithEmployee('manager@test.dev', User::ROLE_MANAGER, 'Manager', 'User');
         }
     }
 

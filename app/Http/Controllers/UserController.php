@@ -104,12 +104,14 @@ class UserController extends Controller
                  // Add any other client fields here
               ]);
 
+                $userable->save();
+
                 // Attach categories if provided
                 if ($request->getCategoryIds()) {
                     $userable->categories()->attach($request->getCategoryIds());
                 }
 
-                $userable->save();
+
 
              }
 

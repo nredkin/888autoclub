@@ -67,7 +67,7 @@
         </div>
 
         <!--Блок клубные карты-->
-        <ClubCards :client="userable"/>
+        <ClubCards v-if="userable.id" :client="userable"/>
 
     </div>
 

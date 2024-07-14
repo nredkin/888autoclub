@@ -14,7 +14,7 @@ class ClubCardController extends Controller
     {
     }
 
-    public function index(int $clientId)
+    public function index($clientId)
     {
         $clubCards = $this->clubCards->where('client_id', $clientId)->get();
         return new JsonResponse(['clubCards' => ClubCardResource::collection($clubCards)]);
