@@ -17,6 +17,9 @@ import CategoryCreateForm from "./components/categories/CategoryCreateForm.vue";
 import CategoryEditForm from "./components/categories/CategoryEditForm.vue";
 import ClubCardLevelsList from "./components/clubCardLevels/ClubCardLevelsList.vue";
 import CarsList from "./components/cars/CarsList.vue";
+import CarCreateForm from "./components/cars/CarCreateForm.vue";
+import CarEditForm from "./components/cars/CarEditForm.vue";
+import ServicesList from "./components/services/ServicesList.vue";
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -85,6 +88,23 @@ const router = createRouter({
             path: '/cars',
             component: CarsList
         },
+        {
+            name: 'createCar',
+            path: '/cars/create',
+            component: CarCreateForm
+        },
+        {
+            name: 'editCar',
+            path: '/cars/:id',
+            component: CarEditForm
+        },
+        //Услуги
+        {
+            name: 'listServices',
+            path: '/services',
+            component: ServicesList
+        },
+
 
 
 

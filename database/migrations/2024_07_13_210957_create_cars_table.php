@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('engine_power');
             $table->integer('color_id');
             $table->decimal('cost', 15);
-            $table->integer('investor_id');
             $table->foreignIdFor(Branch::class);
             $table->string('registration_series');
             $table->string('registration_number');

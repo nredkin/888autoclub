@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ClubCardController;
 use App\Http\Controllers\ClubCardLevelController;
+use App\Http\Controllers\ColorController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DealController;
 use App\Http\Controllers\EmployeeController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\OperationController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProxyController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SourceController;
 use App\Http\Controllers\StatsController;
 use App\Http\Controllers\UserController;
@@ -88,6 +90,24 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{id}', [CarController::class, 'show']);
         Route::put('/{id}', [CarController::class, 'update']);
         Route::delete('/{id}', [CarController::class, 'delete']);
+    });
+
+    Route::group(['prefix' => 'colors'], function () {
+        Route::get('/', [ColorController::class, 'list']);
+        Route::get('/dict', [ColorController::class, 'dict']);
+        Route::post('/', [ColorController::class, 'store']);
+        Route::get('/{id}', [ColorController::class, 'show']);
+        Route::put('/{id}', [ColorController::class, 'update']);
+        Route::delete('/{id}', [ColorController::class, 'delete']);
+    });
+
+    Route::group(['prefix' => 'services'], function () {
+        Route::get('/', [ServiceController::class, 'list']);
+        Route::get('/dict', [ServiceController::class, 'dict']);
+        Route::post('/', [ServiceController::class, 'store']);
+        Route::get('/{id}', [ServiceController::class, 'show']);
+        Route::put('/{id}', [ServiceController::class, 'update']);
+        Route::delete('/{id}', [ServiceController::class, 'delete']);
     });
 
 

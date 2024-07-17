@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use App\Models\Branch;
 use App\Models\Car;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -26,12 +27,11 @@ class CarResource extends JsonResource
             'engine_power'   => $this->resource->engine_power,
             'color_id'       => $this->resource->color_id,
             'cost'           => $this->resource->cost,
-            'investor_id'    => $this->resource->investor_id,
             'branch_id'      => $this->resource->branch_id,
             'registration_series' => $this->resource->registration_series,
             'registration_number' => $this->resource->registration_number,
             'pts_number'     => $this->resource->pts_number,
-            'pts_date'       => $this->resource->pts_date,
+            'pts_date'       => $this->resource->pts_date? Carbon::parse($this->resource->pts_date)->format('Y-m-d') : '',
             'reg_sign'       => $this->resource->reg_sign,
             'description'    => $this->resource->description,
         ];
