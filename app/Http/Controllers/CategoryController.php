@@ -36,7 +36,7 @@ class CategoryController extends Controller
         $category = $this->categories->find($id);
 
         if (!$category) {
-            return $this->error('Филиал не найден');
+            return $this->error('Категория не найдена');
         }
 
         return new JsonResponse(['category' => CategoryResource::make($category)]);
@@ -47,7 +47,7 @@ class CategoryController extends Controller
         $category = $this->categories->find($id);
 
         if (!$category) {
-            return $this->error('Филиал не найден');
+            return $this->error('Категория не найдена');
         }
 
         $category->name = $request->getName();
@@ -62,7 +62,7 @@ class CategoryController extends Controller
         $category = $this->categories->find($id);
 
         if (!$category) {
-            return $this->error('Филиал не найден');
+            return $this->error('Категория не найдена');
         }
 
         $category->delete();

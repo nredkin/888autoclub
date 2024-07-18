@@ -110,6 +110,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/{id}', [ServiceController::class, 'delete']);
     });
 
+    Route::group(['prefix' => 'deals'], function () {
+        Route::get('/', [DealController::class, 'list']);
+        Route::get('/dict', [DealController::class, 'dict']);
+        Route::post('/', [DealController::class, 'store']);
+        Route::get('/{id}', [DealController::class, 'show']);
+        Route::put('/{id}', [DealController::class, 'update']);
+        Route::delete('/{id}', [DealController::class, 'delete']);
+    });
+
 
     Route::get('/', [IndexController::class, 'index'])->name('dashboard');
 });
