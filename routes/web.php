@@ -41,7 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'users'], function () {
         Route::get('/managers', [UserController::class, 'managersList']);
         Route::get('/admins', [UserController::class, 'adminsList']);
-        Route::get('/investors', [UserController::class, 'investorsList']);
+        Route::get('/clients', [UserController::class, 'clientsList']);
         Route::get('/getAllUsers', [UserController::class, 'getAllUsers']);
 
         Route::get('/', [UserController::class, 'index'])->name('users.list');
@@ -50,6 +50,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/{id}', [UserController::class, 'update']);
         Route::delete('/{id}', [UserController::class, 'delete']);
     });
+
+    Route::group(['prefix' => 'clients'], function () {
+        Route::get('/', [UserController::class, 'clientsList']);
+    });
+
 
     Route::group(['prefix' => 'branches'], function () {
         Route::get('/', [BranchController::class, 'list']);

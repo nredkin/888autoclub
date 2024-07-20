@@ -28,10 +28,12 @@ class DealController extends Controller
         $deal->deal_type = $request->getDealType();
         $deal->client_id = $request->getClientId();
         $deal->car_id = $request->getCarId();
+        $deal->branch_id = $request->getBranchId();
         $deal->security_deposit = $request->getSecurityDeposit();
         $deal->contract_date = $request->getContractDate();
         $deal->rental_start = $request->getRentalStart();
         $deal->rental_end = $request->getRentalEnd();
+        $deal->comment = $request->getComment();
 
         $deal->save();
 
@@ -60,10 +62,12 @@ class DealController extends Controller
         $deal->deal_type = $request->getDealType();
         $deal->client_id = $request->getClientId();
         $deal->car_id = $request->getCarId();
+        $deal->branch_id = $request->getBranchId();
         $deal->security_deposit = $request->getSecurityDeposit();
         $deal->contract_date = $request->getContractDate();
         $deal->rental_start = $request->getRentalStart();
         $deal->rental_end = $request->getRentalEnd();
+        $deal->comment = $request->getComment();
 
         $deal->save();
 

@@ -17,16 +17,15 @@ class DealResource extends JsonResource
     {
         return [
             'id' => $this->resource->id,
-            'deal_number' => $this->resource->deal_number,
             'deal_type' => $this->resource->deal_type,
-            'client' => $this->resource->client_id,
-            'car' => $this->resource->car_id,
+            'client_id' => $this->resource->client_id,
+            'car_id' => $this->resource->car_id,
+            'branch_id' => $this->resource->branch_id,
             'security_deposit' => $this->resource->security_deposit,
-            'contract_date' => $this->resource->contract_date->toDateString(),
-            'rental_start' => $this->resource->rental_start ? Carbon::parse($this->resource->rental_start)->format('Y-m-d') : '',
-            'rental_end' => $this->resource->rental_end ? Carbon::parse($this->resource->rental_end)->format('Y-m-d') : '',
-            'created_at' => $this->resource->created_at->toDateTimeString(),
-            'updated_at' => $this->resource->updated_at->toDateTimeString(),
+            'contract_date' => $this->resource->contract_date ? Carbon::parse($this->resource->contract_date)->format('Y-m-d') : '',
+            'rental_start' => $this->resource->rental_start ? Carbon::parse($this->resource->rental_start)->format('Y-m-d H:i') : '',
+            'rental_end' => $this->resource->rental_end ? Carbon::parse($this->resource->rental_end)->format('Y-m-d H:i') : '',
+            'comment' => $this->resource->commit,
         ];
     }
 }

@@ -26,6 +26,8 @@ import ColorEditForm from "./components/colors/ColorEditForm.vue";
 import ServiceCreateForm from "./components/services/ServiceCreateForm.vue";
 import ServiceEditForm from "./components/services/ServiceEditForm.vue";
 import DealsList from "./components/deals/DealsList.vue";
+import DealCreateForm from "./components/deals/DealCreateForm.vue";
+import DealEditForm from "./components/deals/DealEditForm.vue";
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -141,6 +143,16 @@ const router = createRouter({
             name: 'listDeals',
             path: '/deals',
             component: DealsList
+        },
+        {
+            name: 'createDeal',
+            path: '/deals/create',
+            component: DealCreateForm
+        },
+        {
+            name: 'editDeal',
+            path: '/deals/:id',
+            component: DealEditForm
         },
 
 

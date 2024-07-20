@@ -43,12 +43,12 @@
                         </td>
                         <td class="">
                             <div class="flex items-center pl-5">
-                                <p class="text-base font-medium leading-none text-gray-700 mr-2">{{ deal.client_id }}</p>
+                                <p class="text-base font-medium leading-none text-gray-700 mr-2">{{ getClientFullName(deal.client_id) }}</p>
                             </div>
                         </td>
                         <td class="">
                             <div class="flex items-center pl-5">
-                                <p class="text-base font-medium leading-none text-gray-700 mr-2">{{ deal.car_id }}</p>
+                                <p class="text-base font-medium leading-none text-gray-700 mr-2">{{ getCarModel(deal.car_id) }}</p>
                             </div>
                         </td>
                         <td class="">
@@ -76,11 +76,11 @@
                     </tbody>
                 </table>
             </div>
-<!--            <router-link to="/deals/create"-->
-<!--                         class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 mt-4 sm:mt-0 inline-flex items-start justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"-->
-<!--                         type="button">-->
-<!--                <p class="text-sm font-medium leading-none text-white">Добавить цвет</p>-->
-<!--            </router-link>-->
+            <router-link to="/deals/create"
+                         class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 mt-4 sm:mt-0 inline-flex items-start justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded"
+                         type="button">
+                <p class="text-sm font-medium leading-none text-white">Добавить сделку</p>
+            </router-link>
         </div>
     </div>
 </template>
@@ -90,6 +90,8 @@ import {DealService} from "../../services/DealService";
 import {UserService} from "../../services/UserService";
 import Spinner from "../forms/Spinner.vue";
 import Alert from "../forms/Alert.vue";
+import {CarService} from "../../services/CarService";
+import {ClientService} from "../../services/ClientService";
 
 export default {
     components: {Alert, Spinner},
@@ -97,12 +99,16 @@ export default {
         return {
             auth_user:[],
             deals: [],
+            cars: [],
+            clients: [],
             loading: false,
             errorMessage: false
         }
     },
     name: "DealsList",
     created: function () {
+        CarService.getCars().then(response => this.cars = response.data.cars)
+        ClientService.getClients().then(response => this.clients = response.data.clients)
         this.update()
         this.getAuthUser()
     },
@@ -128,6 +134,14 @@ export default {
                     .then(() => this.update())
                     .catch(error => this.errors = error.response.data.message)
             }
+        },
+        getClientFullName(clientId) {
+            const client = this.clients.find(client => client.id === clientId);
+            return client ? client.fullName : '';
+        },
+        getCarModel(carId) {
+            const car = this.cars.find(car => car.id === carId);
+            return car ? car.model : '';
         }
     }
 }

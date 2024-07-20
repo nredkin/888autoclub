@@ -25,10 +25,12 @@ class CreateDealRequest extends FormRequest
             'deal_type' => 'required|integer|in:0,1',
             'client_id' => 'required|exists:clients,id',
             'car_id' => 'required|exists:cars,id',
+            'branch_id' => 'required|exists:branches,id',
             'security_deposit' => 'required|numeric|min:0',
             'contract_date' => 'required|date',
             'rental_start' => 'nullable|date',
             'rental_end' => 'nullable|date|after_or_equal:rental_start',
+            'comment' => 'nullable',
         ];
     }
 
@@ -54,6 +56,14 @@ class CreateDealRequest extends FormRequest
     public function getCarId(): int
     {
         return $this->input('car_id');
+    }
+
+    /**
+     * Get the branch ID.
+     */
+    public function getBranchId(): int
+    {
+        return $this->input('branch_id');
     }
 
     /**
@@ -86,5 +96,13 @@ class CreateDealRequest extends FormRequest
     public function getRentalEnd(): ?string
     {
         return $this->input('rental_end');
+    }
+
+    /**
+     * Get comment.
+     */
+    public function getComment(): ?string
+    {
+        return $this->input('comment');
     }
 }

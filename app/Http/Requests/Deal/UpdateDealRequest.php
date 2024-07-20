@@ -26,10 +26,12 @@ class UpdateDealRequest extends FormRequest
             'deal_type' => 'required|integer|in:0,1',
             'client_id' => 'required|exists:clients,id',
             'car_id' => 'required|exists:cars,id',
+            'branch_id' => 'required|exists:branches,id',
             'security_deposit' => 'required|numeric|min:0',
             'contract_date' => 'required|date',
             'rental_start' => 'nullable|date',
             'rental_end' => 'nullable|date|after_or_equal:rental_start',
+            'comment' => 'nullable',
         ];
     }
 
@@ -63,6 +65,14 @@ class UpdateDealRequest extends FormRequest
     }
 
     /**
+     * Get the branch ID.
+     */
+    public function getBranchId(): int
+    {
+        return $this->input('branch_id');
+    }
+
+    /**
      * Get the security deposit.
      */
     public function getSecurityDeposit(): float
@@ -92,5 +102,13 @@ class UpdateDealRequest extends FormRequest
     public function getRentalEnd(): ?string
     {
         return $this->input('rental_end');
+    }
+
+    /**
+     * Get comment.
+     */
+    public function getComment(): ?string
+    {
+        return $this->input('comment');
     }
 }

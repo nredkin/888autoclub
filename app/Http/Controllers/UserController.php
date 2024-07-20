@@ -252,7 +252,7 @@ class UserController extends Controller
         $clients = User::where('role_id', '=', User::ROLE_CLIENT)->get();
 
         foreach ($clients as $client) {
-            $clientsList[] = ['id' => $client->id, 'email' => $client->getEmail()];
+            $clientsList[] = ['id' => $client->userable->id, 'fullName' => $client->userable->getFullName()];
         }
 
         return new JsonResponse(['clients' => $clientsList]);
