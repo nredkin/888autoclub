@@ -22,7 +22,7 @@
                 </div>
 
                 <EmployeeFields v-if="user.roleId == 1 || user.roleId == 2" :userable="user.userable" />
-                <ClientFields v-if="user.roleId == 3" :userable="user.userable" />
+                <ClientFields v-if="user.roleId == 3" :userable="user.userable" :userId="user.id" />
 
                 <div class="mt-6 flex items-center justify-end gap-x-6">
                     <router-link to="/users" type="button"

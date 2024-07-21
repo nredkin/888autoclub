@@ -28,6 +28,7 @@ import ServiceEditForm from "./components/services/ServiceEditForm.vue";
 import DealsList from "./components/deals/DealsList.vue";
 import DealCreateForm from "./components/deals/DealCreateForm.vue";
 import DealEditForm from "./components/deals/DealEditForm.vue";
+import OperationsList from "./components/operations/OperationsList.vue";
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -153,6 +154,12 @@ const router = createRouter({
             name: 'editDeal',
             path: '/deals/:id',
             component: DealEditForm
+        },
+        //Финансовые операции
+        {
+            name: 'listOperations',
+            path: '/operations',
+            component: OperationsList
         },
 
 

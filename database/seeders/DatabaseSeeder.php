@@ -15,39 +15,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        if (app()->environment() === 'local') {
-            $this->createUserWithEmployee('admin@test.dev', User::ROLE_ADMIN, 'Admin', 'User');
-            $this->createUserWithEmployee('manager@test.dev', User::ROLE_MANAGER, 'Manager', 'User');
-        }
+        $this->call([
+            BranchSeeder::class,
+            UserSeeder::class,
+            ColorSeeder::class,
+            ClubCardLevelSeeder::class,
+            CarSeeder::class,
+            DealSeeder::class,
+        ]);
+
     }
 
-    /**
-     * Create a user with associated employee record.
-     */
-    private function createUserWithEmployee(string $email, int $roleId, string $firstName, string $lastName): void
-    {
-        DB::transaction(function () use ($email, $roleId, $firstName, $lastName) {
-            $user = User::where('email', $email)->first();
 
-            if (!$user) {
-                $employee = Employee::create([
-                    'first_name' => $firstName,
-                    'last_name' => $lastName,
-                    // Add other necessary employee fields here
-                    // For example: 'branch_id' => 1,
-                ]);
-
-                $user = User::create([
-                    'email' => $email,
-                    'role_id' => $roleId,
-                    'is_active' => true,
-                    'password' => Hash::make('pass54321'),
-                    'userable_id' => $employee->id,
-                    'userable_type' => Employee::class,
-                ]);
-
-                $employee->user()->save($user);
-            }
-        });
-    }
 }

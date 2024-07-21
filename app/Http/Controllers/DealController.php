@@ -26,7 +26,7 @@ class DealController extends Controller
         $deal = $this->deals->newInstance();
 
         $deal->deal_type = $request->getDealType();
-        $deal->client_id = $request->getClientId();
+        $deal->user_id = $request->getUserId();
         $deal->car_id = $request->getCarId();
         $deal->branch_id = $request->getBranchId();
         $deal->security_deposit = $request->getSecurityDeposit();
@@ -60,7 +60,7 @@ class DealController extends Controller
         }
 
         $deal->deal_type = $request->getDealType();
-        $deal->client_id = $request->getClientId();
+        $deal->user_id = $request->getUserId();
         $deal->car_id = $request->getCarId();
         $deal->branch_id = $request->getBranchId();
         $deal->security_deposit = $request->getSecurityDeposit();

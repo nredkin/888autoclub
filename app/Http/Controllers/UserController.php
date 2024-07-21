@@ -98,6 +98,7 @@ class UserController extends Controller
                 'inn' => $request->getInn(),
                 'phone_number' => $request->getPhone(),
                 'comment' => $request->getComment(),
+                'balance' => $request->getBalance(),
                 'complaints' => $request->getComplaints(),
                 'last_check_fssp' => $request->getLastCheckFssp(),
                 'last_check_enforcement' => $request->getLastCheckEnforcement(),
@@ -182,6 +183,7 @@ class UserController extends Controller
                     'inn' => $request->getInn(),
                     'phone_number' => $request->getPhone(),
                     'comment' => $request->getComment(),
+                    'balance' => $request->getBalance(),
                     'complaints' => $request->getComplaints(),
                     'last_check_fssp' => $request->getLastCheckFssp(),
                     'last_check_enforcement' => $request->getLastCheckEnforcement(),
@@ -250,9 +252,10 @@ class UserController extends Controller
     {
         $adminsList = [];
         $clients = User::where('role_id', '=', User::ROLE_CLIENT)->get();
+        $clientsList = [];
 
         foreach ($clients as $client) {
-            $clientsList[] = ['id' => $client->userable->id, 'fullName' => $client->userable->getFullName()];
+            $clientsList[] = ['id' => $client->id, 'fullName' => $client->userable->getFullName()];
         }
 
         return new JsonResponse(['clients' => $clientsList]);

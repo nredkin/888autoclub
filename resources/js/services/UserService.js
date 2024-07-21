@@ -56,9 +56,9 @@ export class UserService {
         return axios.get(url)
     }
 
-    static getInvestorsList()
+    static getClientsList()
     {
-        let url = `${this.serverUrl}/users/investors`;
+        let url = `${this.serverUrl}/users/clients`;
         return axios.get(url)
     }
 }

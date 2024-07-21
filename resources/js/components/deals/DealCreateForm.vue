@@ -12,7 +12,7 @@
                     <my-select name="deal_type" v-model:value="deal.deal_type" title="Тип сделки" :values="dealTypes"/>
                 </div>
                 <div class="relative z-1 w-full mb-6 group">
-                    <my-select name="client_id" v-model:value="deal.client_id" title="ФИО клиента" :values="clients" displayField="fullName"/>
+                    <my-select name="client_id" v-model:value="deal.user_id" title="ФИО клиента" :values="clients" displayField="fullName"/>
                 </div>
                 <div class="relative z-1 w-full mb-6 group">
                     <my-select name="car_id" v-model:value="deal.car_id" title="Наименование автомобиля" :values="cars" displayField="model"/>
@@ -63,7 +63,7 @@ export default {
             loading: false,
             deal: {
                 'deal_type': 0,
-                'client_id': null,
+                'user_id': null,
                 'car_id': null,
                 'branch_id': null,
                 'security_deposit': 0,

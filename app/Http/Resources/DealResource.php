@@ -18,7 +18,7 @@ class DealResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'deal_type' => $this->resource->deal_type,
-            'client_id' => $this->resource->client_id,
+            'user_id' => $this->resource->user_id,
             'car_id' => $this->resource->car_id,
             'branch_id' => $this->resource->branch_id,
             'security_deposit' => $this->resource->security_deposit,

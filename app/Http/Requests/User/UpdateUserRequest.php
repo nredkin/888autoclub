@@ -163,4 +163,10 @@ class UpdateUserRequest extends FormRequest
         return isset($userable['lastCheckEnforcement']) ? Carbon::parse($userable['lastCheckEnforcement']) : NULL;
     }
 
+    public function getBalance(): string
+    {
+        $userable = $this->input('userable');
+        return isset($userable['balance']) ? $userable['balance'] : '';
+    }
+
 }

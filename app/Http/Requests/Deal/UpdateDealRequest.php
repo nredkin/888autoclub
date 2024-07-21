@@ -24,7 +24,7 @@ class UpdateDealRequest extends FormRequest
         return [
             'id'              => 'required',
             'deal_type' => 'required|integer|in:0,1',
-            'client_id' => 'required|exists:clients,id',
+            'user_id' => 'required|exists:users,id',
             'car_id' => 'required|exists:cars,id',
             'branch_id' => 'required|exists:branches,id',
             'security_deposit' => 'required|numeric|min:0',
@@ -51,9 +51,9 @@ class UpdateDealRequest extends FormRequest
     /**
      * Get the client ID.
      */
-    public function getClientId(): int
+    public function getUserId(): int
     {
-        return $this->input('client_id');
+        return $this->input('user_id');
     }
 
     /**

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('deals', function (Blueprint $table) {
             $table->id();
             $table->tinyInteger('deal_type');
-            $table->foreignId('client_id')->constrained('clients')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('car_id')->constrained('cars')->onDelete('cascade'); //
             $table->foreignId('branch_id')->default(1);
             $table->decimal('security_deposit', 10, 2)->default(30000); // Security deposit with a default value of 30,000

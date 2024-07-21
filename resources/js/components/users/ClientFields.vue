@@ -69,6 +69,10 @@
         <!--Блок клубные карты-->
         <ClubCards v-if="userable.id" :client="userable"/>
 
+        <!--Блок баланс-->
+        <Balance v-if="userable.id" :userId="userId"/>
+
+
     </div>
 
 </template>
@@ -82,12 +86,14 @@ import MultiSelect from "../forms/MultiSelect.vue";
 import {CategoryService} from "../../services/CategoryService";
 import {get} from 'lodash';
 import ClubCards from "./ClubCards.vue";
+import Balance from "./Balance.vue";
 
 export default {
-    components: {ClubCards, MultiSelect, TextInput, DateInput, Textarea},
+    components: {ClubCards, Balance, MultiSelect, TextInput, DateInput, Textarea},
     name: 'ClientFields',
     props: {
         userable: Object,
+        userId: null,
     },
     data: function () {
         return {

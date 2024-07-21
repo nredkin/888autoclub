@@ -124,6 +124,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/{id}', [DealController::class, 'delete']);
     });
 
+    Route::group(['prefix' => 'operations'], function () {
+        Route::get('/', [OperationController::class, 'list']);
+        Route::post('/', [OperationController::class, 'store']);
+        Route::get('/{id}', [OperationController::class, 'show']);
+        Route::put('/{id}', [OperationController::class, 'update']);
+        Route::delete('/{id}', [OperationController::class, 'delete']);
+    });
+
 
     Route::get('/', [IndexController::class, 'index'])->name('dashboard');
 });

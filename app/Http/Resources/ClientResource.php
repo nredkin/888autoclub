@@ -32,6 +32,7 @@ class ClientResource extends JsonResource
             'lastCheckFssp'       => $this->resource->last_check_fssp ? Carbon::parse($this->resource->last_check_fssp)->format('Y-m-d') : '',
             'lastCheckEnforcement'=> $this->resource->last_check_enforcement ? Carbon::parse($this->resource->last_check_enforcement)->format('Y-m-d') : '',
             'comment'             => $this->resource->comment,
+            'balance'             => $this->resource->balance,
             'complaints'          => $this->resource->complaints,
             'categoryIds'         => $this->resource->category_ids,
             'clubCards'           => $this->resource->clubCards,
