@@ -20,12 +20,10 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        if (app()->environment() === 'local') {
-            $this->createUserWithEmployee('admin@test.dev', User::ROLE_ADMIN, 'Admin', 'User');
-            $this->createUserWithEmployee('manager@test.dev', User::ROLE_MANAGER, 'Manager', 'User');
-            $this->createUserWithClient('client1@test.dev', User::ROLE_CLIENT);
-            $this->createUserWithClient('client2@test.dev', User::ROLE_CLIENT);
-        }
+        $this->createUserWithEmployee('admin@test.dev', User::ROLE_ADMIN, 'Admin', 'User');
+        $this->createUserWithEmployee('manager@test.dev', User::ROLE_MANAGER, 'Manager', 'User');
+        $this->createUserWithClient('client1@test.dev', User::ROLE_CLIENT);
+        $this->createUserWithClient('client2@test.dev', User::ROLE_CLIENT);
     }
 
     /**
