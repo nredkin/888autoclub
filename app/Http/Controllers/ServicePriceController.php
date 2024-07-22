@@ -22,14 +22,14 @@ class ServicePriceController extends Controller
     }
 
     public function getServicePricesByCar($carId)
-    {logger($carId);
+    {
         // Get all services with their related prices for the specific car
         $services = Service::whereHas('servicePrices', function ($query) use ($carId) {
             $query->where('car_id', $carId);
         })->with(['servicePrices' => function ($query) use ($carId) {
             $query->where('car_id', $carId);
         }])->get();
-logger($services);
+
         // Format the response
         $result = $services->map(function ($service) {
             return [
