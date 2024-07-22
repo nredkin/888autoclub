@@ -18,6 +18,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProxyController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ServicePriceController;
 use App\Http\Controllers\SourceController;
 use App\Http\Controllers\StatsController;
 use App\Http\Controllers\UserController;
@@ -130,6 +131,16 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{id}', [OperationController::class, 'show']);
         Route::put('/{id}', [OperationController::class, 'update']);
         Route::delete('/{id}', [OperationController::class, 'delete']);
+    });
+
+    Route::group(['prefix' => 'servicePrices'], function () {
+        Route::get('/{serviceId}', [ServicePriceController::class, 'index']);
+        Route::get('/car-services/{carId}/prices', [ServicePriceController::class, 'getServicePricesByCar']);
+        Route::get('/', [ServicePriceController::class, 'list']);
+        Route::post('/', [ServicePriceController::class, 'store']);
+        Route::get('/{id}', [ServicePriceController::class, 'show']);
+        Route::put('/{id}', [ServicePriceController::class, 'update']);
+        Route::delete('/{id}', [ServicePriceController::class, 'delete']);
     });
 
 

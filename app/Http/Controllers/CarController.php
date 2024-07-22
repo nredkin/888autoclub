@@ -27,7 +27,7 @@ class CarController extends Controller
 
         if (!$car) {
             return $this->error('Автомобиль не найден');
-        }logger($car);
+        }
 
         return new JsonResponse(['car' => CarResource::make($car)]);
     }

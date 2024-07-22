@@ -63,14 +63,16 @@
             <div class="relative z-0 w-full mb-6 group">
                 <Textarea title="Комментарий" name="comment" v-model:value="userable.comment"/>
             </div>
-            <!-- Add other userable fields here -->
         </div>
 
-        <!--Блок клубные карты-->
-        <ClubCards v-if="userable.id" :client="userable"/>
-
-        <!--Блок баланс-->
-        <Balance v-if="userable.id" :userId="userId"/>
+<!--        <div class="grid md:grid-cols-2 md:gap-6">-->
+            <div class="relative z-0 w-full mb-6 group">
+                <ClubCards v-if="userable.id" :client="userable"/>
+            </div>
+            <div class="relative z-0 w-full mb-6 group">
+                <Balance v-if="userable.id" :userId="userId"/>
+            </div>
+<!--        </div>-->
 
 
     </div>

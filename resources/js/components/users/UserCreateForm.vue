@@ -9,7 +9,7 @@
                     <Checkbox title="Пользователь активен?" name="enabled" v-model:checked="user.is_active"
                               :checked="user.is_active"/>
                 </div>
-                <div class="grid md:grid-cols-5 md:gap-6">
+                <div class="grid md:grid-cols-3 md:gap-6">
                     <div class="relative z-1 w-full mb-6 group">
                         <my-select name="roleId" v-model:value="user.roleId" title="Роль" :values="userRoles"/>
                     </div>

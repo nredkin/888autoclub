@@ -49,6 +49,8 @@
                     <Textarea title="Описание" name="description" v-model:value="car.description"/>
                 </div>
 
+                <Services v-if="car" :carId="car.id" />
+
                 <div class="mt-6 flex items-center justify-end gap-x-6">
                     <router-link to="/cars" type="button"
                                  class="text-sm font-semibold leading-6 text-gray-900">Отмена
@@ -73,15 +75,17 @@ import MySelect from "../forms/MySelect.vue";
 import {BranchService} from "../../services/BranchService";
 import {ColorService} from "../../services/ColorService";
 import Textarea from "../forms/Textarea.vue";
+import Services from "./Services.vue"
 
 export default {
     name: "CarEditForm",
-    components: {Textarea, MySelect, DateInput, Alert, TextInput, Success},
+    components: {Services, Textarea, MySelect, DateInput, Alert, TextInput, Success},
     data: function () {
         return {
             loading: false,
             id: this.$route.params.id,
             car: {
+                'id': 0,
                 'model': '',
                 'vin': '',
                 'year':  '',
@@ -106,7 +110,7 @@ export default {
     created: async function () {
         BranchService.getBranches().then(response => this.branches = response.data.branches)
         ColorService.getColors().then(response => this.colors = response.data.colors)
-        this.getData(this.id)
+        await this.getData(this.id)
 
     },
     methods: {

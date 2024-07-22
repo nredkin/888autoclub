@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
             ClubCardLevelSeeder::class,
             CarSeeder::class,
             DealSeeder::class,
+            ServiceSeeder::class,
+            ServicePriceSeeder::class,
         ]);
 
     }

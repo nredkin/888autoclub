@@ -3,6 +3,7 @@
       <div>
           <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Финансовая информация</h3>
           <h2 class="mb-2 text-2xl font-medium">Баланс: {{ client.balance }} руб</h2>
+          <h2 class="mb-2 text-2xl font-medium">Бонусные баллы: {{ client.bonus_points }} </h2>
           <table class="table border">
               <thead>
               <tr>
@@ -107,7 +108,8 @@ export default {
             },
             user: {},
             client: {
-                balance: 0
+                balance: 0,
+                bonus_points: 0,
             },
         }
     },

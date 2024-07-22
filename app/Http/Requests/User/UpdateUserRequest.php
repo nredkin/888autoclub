@@ -169,4 +169,10 @@ class UpdateUserRequest extends FormRequest
         return isset($userable['balance']) ? $userable['balance'] : '';
     }
 
+    public function getBonusPoints()
+    {
+        $userable = $this->input('userable');
+        return isset($userable['bonus_points']) ? $userable['bonus_points'] : 0;
+    }
+
 }
