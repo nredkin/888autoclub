@@ -12,6 +12,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DealController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ExpensesController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\InvestorPaymentController;
 use App\Http\Controllers\OperationController;
 use App\Http\Controllers\IndexController;
@@ -141,6 +142,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{id}', [ServicePriceController::class, 'show']);
         Route::put('/{id}', [ServicePriceController::class, 'update']);
         Route::delete('/{id}', [ServicePriceController::class, 'delete']);
+    });
+
+    Route::group(['prefix' => 'files'], function () {
+        Route::get('/download/{id}', [FileController::class, 'download'])->name('files.download');
+        Route::get('/{modelType}/{modelId}', [FileController::class, 'index'])->name('files.index');
+        Route::post('/{modelType}/{modelId}', [FileController::class, 'upload'])->name('files.upload');
+        Route::delete('/{id}', [FileController::class, 'delete'])->name('files.delete');
     });
 
 

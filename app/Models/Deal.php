@@ -9,4 +9,9 @@ class Deal extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function files()
+    {
+        return $this->morphMany(File::class, 'fileable');
+    }
 }

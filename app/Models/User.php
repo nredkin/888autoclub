@@ -94,4 +94,9 @@ class User extends Authenticatable
     {
         return $this->role_id === self::ROLE_CLIENT;
     }
+
+    public function files()
+    {
+        return $this->morphMany(File::class, 'fileable');
+    }
 }

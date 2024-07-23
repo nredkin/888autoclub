@@ -72,6 +72,9 @@
             <div class="relative z-0 w-full mb-6 group">
                 <Balance v-if="userable.id" :userId="userId"/>
             </div>
+            <div class="relative z-0 w-full mb-6 group">
+                <Files :modelId="userId" modelType="user"/>
+            </div>
 <!--        </div>-->
 
 
@@ -89,9 +92,10 @@ import {CategoryService} from "../../services/CategoryService";
 import {get} from 'lodash';
 import ClubCards from "./ClubCards.vue";
 import Balance from "./Balance.vue";
+import Files from "./Files.vue";
 
 export default {
-    components: {ClubCards, Balance, MultiSelect, TextInput, DateInput, Textarea},
+    components: {ClubCards, Balance, Files, MultiSelect, TextInput, DateInput, Textarea},
     name: 'ClientFields',
     props: {
         userable: Object,

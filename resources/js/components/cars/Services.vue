@@ -108,7 +108,7 @@ export default {
             immediate: true,
             handler(newCarId) {
                 if (newCarId) {
-                    this.loadServices().then(response => console.log(this.services));
+                    this.loadServices();
                     ClubCardLevelService.getClubCardLevels().then(response => {this.clubCardLevels = response.data.clubCardLevels})
 
                 }

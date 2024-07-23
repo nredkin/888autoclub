@@ -14,4 +14,9 @@ class Service extends Model
     {
         return $this->hasMany(ServicePrice::class);
     }
+
+    public function files()
+    {
+        return $this->morphMany(File::class, 'fileable');
+    }
 }
