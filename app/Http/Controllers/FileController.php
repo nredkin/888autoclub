@@ -65,12 +65,12 @@ class FileController extends Controller
         $file = $this->file->findOrFail($id);
 
         // Delete the file from storage
-        Storage::delete($file->path);
+        Storage::disk('public')->delete($file->path);
 
-        // Delete the record from the database
+        // Delete the file record from the database
         $file->delete();
 
-        return response()->json(['message' => 'File deleted successfully']);
+        return response()->json(['message' => 'File deleted successfully'], 200);
     }
 
     private function getModelInstance($modelType, $modelId)

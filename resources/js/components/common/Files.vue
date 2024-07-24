@@ -1,7 +1,7 @@
 <template>
   <div class="grid md:grid-cols-3 md:gap-6">
       <div>
-          <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white mt-10">Документы</h3>
+          <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white mt-10">Файлы</h3>
           <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Загрузить
               файл</label>
           <input @change="uploadFile"
@@ -32,7 +32,7 @@
                               </svg>
                           </div>
                           <div class="grid justify-items-end">
-                              <svg @click="removeFile(modelId, file.id)"
+                              <svg @click="deleteFile(file.id)"
                                    class="cursor-pointer w-6 h-6 text-gray-700 dark:text-white" aria-hidden="true"
                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
                                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -107,6 +107,14 @@ export default {
                 document.body.appendChild(link);
                 link.click();
                 link.remove();
+            } catch (error) {
+                this.errors = error.response ? error.response.data.errors : [error.message];
+            }
+        },
+        async deleteFile(id) {
+            try {
+                await FileService.delete(id);
+                this.files = this.files.filter(file => file.id !== id);
             } catch (error) {
                 this.errors = error.response ? error.response.data.errors : [error.message];
             }

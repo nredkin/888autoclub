@@ -49,6 +49,10 @@
                 </div>
             </form>
 
+            <div class="relative z-0 w-full mb-6 group">
+                <Files :modelId="service.id" modelType="service"/>
+            </div>
+
         </div>
     </div>
 </template>
@@ -59,10 +63,11 @@ import Alert from "../forms/Alert.vue";
 import Success from "../forms/Success.vue";
 import TextInput from "../forms/TextInput.vue";
 import Checkbox from "../forms/Checkbox.vue";
+import Files from "../common/Files.vue";
 
 export default {
     name: "ServiceEditForm",
-    components: {Checkbox, TextInput, Success, Alert},
+    components: {Files, Checkbox, TextInput, Success, Alert},
     data: function () {
         return {
             loading: false,

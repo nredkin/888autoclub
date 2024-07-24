@@ -19,6 +19,6 @@ export class FileService {
 
     static delete(id) {
         let url = `${this.serverUrl}/files/${id}`;
-        return axios.delete(url)
+        return axios.delete(url);
     }
 }

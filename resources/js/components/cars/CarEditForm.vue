@@ -49,8 +49,6 @@
                     <Textarea title="Описание" name="description" v-model:value="car.description"/>
                 </div>
 
-                <Services v-if="car" :carId="car.id" />
-
                 <div class="mt-6 flex items-center justify-end gap-x-6">
                     <router-link to="/cars" type="button"
                                  class="text-sm font-semibold leading-6 text-gray-900">Отмена
@@ -59,6 +57,12 @@
                             class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                         Сохранить
                     </button>
+                </div>
+
+                <Services v-if="car" :carId="car.id" />
+
+                <div class="relative z-0 w-full mb-6 group">
+                    <Files :modelId="car.id" modelType="car"/>
                 </div>
             </form>
         </div>
@@ -76,10 +80,11 @@ import {BranchService} from "../../services/BranchService";
 import {ColorService} from "../../services/ColorService";
 import Textarea from "../forms/Textarea.vue";
 import Services from "./Services.vue"
+import Files from "../common/Files.vue"
 
 export default {
     name: "CarEditForm",
-    components: {Services, Textarea, MySelect, DateInput, Alert, TextInput, Success},
+    components: {Services, Files, Textarea, MySelect, DateInput, Alert, TextInput, Success},
     data: function () {
         return {
             loading: false,

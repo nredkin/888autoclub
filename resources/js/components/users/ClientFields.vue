@@ -92,7 +92,7 @@ import {CategoryService} from "../../services/CategoryService";
 import {get} from 'lodash';
 import ClubCards from "./ClubCards.vue";
 import Balance from "./Balance.vue";
-import Files from "./Files.vue";
+import Files from "../common/Files.vue"
 
 export default {
     components: {ClubCards, Balance, Files, MultiSelect, TextInput, DateInput, Textarea},
