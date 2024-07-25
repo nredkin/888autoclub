@@ -18,7 +18,7 @@
                       <div class="mb-1 font-normal text-gray-700 dark:text-gray-400">Размер: {{ file.filesize }} Мб
                       </div>
                       <div class="mb-1 font-normal text-gray-700 dark:text-gray-400">Сохранен: {{
-                              file.createdAt
+                              file.created_at
                           }}
                       </div>
                       <div class="grid grid-cols-2">

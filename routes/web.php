@@ -51,6 +51,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{id}', [UserController::class, 'show']);
         Route::put('/{id}', [UserController::class, 'update']);
         Route::delete('/{id}', [UserController::class, 'delete']);
+
+        Route::get('/contract/{userId}', [UserController::class, 'contract']);
     });
 
     Route::group(['prefix' => 'clients'], function () {

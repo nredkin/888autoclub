@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -19,6 +20,7 @@ class FileResource extends JsonResource
             'filename'        => $this->resource->filename,
             'path'            => $this->resource->path,
             'filesize'        => $this->resource->filesize,
+            'created_at'      => $this->resource->created_at ? Carbon::parse($this->resource->created_at)->format('Y-m-d') : '',
         ];
     }
 }

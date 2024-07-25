@@ -8,10 +8,14 @@ use App\Http\Resources\UserResource;
 use App\Models\Client;
 use App\Models\Employee;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use PhpOffice\PhpWord\Element\Table;
+use PhpOffice\PhpWord\SimpleType\TblWidth;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 class UserController extends Controller
 {
@@ -274,5 +278,43 @@ class UserController extends Controller
                 ]
             ]
         );
+    }
+
+    public function contract(int $userId)
+    {
+        $user = $this->users->with('userable')->find($userId);
+
+        if (!$user) {
+            return $this->error('Пользователь не найден');
+        }
+
+        if ($this->getUser()->isAdmin()) {
+            $template = new TemplateProcessor(storage_path('templates/contract_with_driver.docx'));
+
+            $template->setValue('contractDate', Carbon::now()->format('d.m.Y'));
+
+            $template->setValue('clientFullName', $user->userable->getFullName());
+            $template->setValue('clientBirthday', $user->userable->birthday ? Carbon::parse($user->userable->birthday)->format('d.m.Y') : '');
+            $template->setValue('clientPassportSeries', $user->userable->passport_series);
+            $template->setValue('clientPassportNumber', $user->userable->passport_number);
+            $template->setValue('clientPassportNotes', $user->userable->passport_notes);
+            $template->setValue('clientRegistrationAddress', $user->userable->registration_address);
+            $template->setValue('clientInn', $user->userable->inn);
+            $template->setValue('clientPhone', $user->userable->phone_number);
+
+            ob_start();
+            $template->saveAs('php://output');
+            $ret = ob_get_contents();
+            ob_end_clean();
+
+            header("Content-Type: application/force-download");
+            header("Content-Type: application/octet-stream");
+            header("Content-Type: application/download");
+            header('Content-Disposition: attachment; filename=' . $user->id . '-contract_with_driver.docx');
+
+            return $ret;
+        }
+
+        return $this->error('Недостаточно прав');
     }
 }

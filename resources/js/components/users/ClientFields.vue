@@ -72,6 +72,7 @@
             <div class="relative z-0 w-full mb-6 group">
                 <Balance v-if="userable.id" :userId="userId"/>
             </div>
+            <a href="#" @click="downloadContract" class="text-blue-600 font-medium">Скачать договор</a>
             <div class="relative z-0 w-full mb-6 group">
                 <Files :modelId="userId" modelType="user"/>
             </div>
@@ -93,6 +94,8 @@ import {get} from 'lodash';
 import ClubCards from "./ClubCards.vue";
 import Balance from "./Balance.vue";
 import Files from "../common/Files.vue"
+import fileDownload from "js-file-download";
+import {UserService} from "../../services/UserService";
 
 export default {
     components: {ClubCards, Balance, Files, MultiSelect, TextInput, DateInput, Textarea},
@@ -110,6 +113,14 @@ export default {
         CategoryService.getCategories().then(response => {
             this.categories = get(response, 'data.categories', []);
         });
+    },
+    methods: {
+        downloadContract: function(event) {
+            event.preventDefault()
+            UserService.downloadContract(this.userId)
+                .then(response => fileDownload(response.data, `${this.id}-contract_with_driver.docx`))
+                .catch(error => this.errors = error)
+        },
     },
 };
 </script>
