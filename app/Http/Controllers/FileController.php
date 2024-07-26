@@ -8,14 +8,15 @@ use App\Models\Deal;
 use App\Models\File;
 use App\Models\Service;
 use App\Models\User;
+use App\Services\FileService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
-    public function __construct(private File $file)
+    public function __construct(private File $file, FileService $fileService)
     {
-
+        $this->fileService = $fileService;
     }
 
     public function upload(Request $request, $modelType, $modelId)
@@ -25,18 +26,9 @@ class FileController extends Controller
         ]);
 
         $uploadedFile = $request->file('file');
-        $path = $uploadedFile->store('uploads', 'public');
+        $file = $this->fileService->upload($uploadedFile, $modelType, $modelId);
 
-        $file = new File([
-            'filename' => $uploadedFile->getClientOriginalName(),
-            'path' => $path,
-            'filesize' => $uploadedFile->getSize(),
-        ]);
-
-        $model = $this->getModelInstance($modelType, $modelId);
-        $model->files()->save($file);
-
-        return response()->json(['message' => 'File uploaded successfully']);
+        return response()->json(['message' => 'Файл успешно загружен', 'file' => $file]);
     }
 
     public function index($modelType, $modelId)

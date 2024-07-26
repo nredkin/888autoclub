@@ -62,8 +62,8 @@ export class UserService {
         return axios.get(url)
     }
 
-    static downloadContract(id) {
-        let url = `${this.serverUrl}/users/contract/${id}`;
+    static downloadContract(id, type) {
+        let url = `${this.serverUrl}/users/contract/${id}/${type}`;
         return axios.get(url, {responseType: 'blob'})
     }
 }

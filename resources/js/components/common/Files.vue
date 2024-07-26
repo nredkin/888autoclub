@@ -51,6 +51,7 @@
 <script>
 
 import {FileService} from "../../services/FileService";
+import { EventBus } from '../../helpers/eventBus';
 
 export default {
   name: 'Files',
@@ -68,6 +69,12 @@ export default {
     },
     created: async function () {
         await this.loadFiles();
+    },
+    mounted: async function () {
+        EventBus.on('refresh-files', this.loadFiles);
+    },
+    beforeDestroy() {
+        EventBus.off('refresh-files', this.loadFiles);
     },
     methods: {
         showModal: function () {

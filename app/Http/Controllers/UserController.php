@@ -8,6 +8,7 @@ use App\Http\Resources\UserResource;
 use App\Models\Client;
 use App\Models\Employee;
 use App\Models\User;
+use App\Services\FileService;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -16,13 +17,16 @@ use Illuminate\Support\Facades\Hash;
 use PhpOffice\PhpWord\Element\Table;
 use PhpOffice\PhpWord\SimpleType\TblWidth;
 use PhpOffice\PhpWord\TemplateProcessor;
+use Illuminate\Support\Facades\File as FileFacade;
 
 class UserController extends Controller
 {
     private const PER_PAGE = 20;
+    protected $fileService;
 
-    public function __construct(private User $users)
+    public function __construct(private User $users, FileService $fileService)
     {
+        $this->fileService = $fileService;
     }
 
     public function index(Request $request): JsonResponse
@@ -280,7 +284,7 @@ class UserController extends Controller
         );
     }
 
-    public function contract(int $userId)
+    public function contract(int $userId, string $type)
     {
         $user = $this->users->with('userable')->find($userId);
 
@@ -288,8 +292,14 @@ class UserController extends Controller
             return $this->error('Пользователь не найден');
         }
 
+        $contractTemplateName =  match ($type) {
+            'without_driver' => 'contract_without_driver.docx',
+            'with_driver' => 'contract_with_driver.docx',
+            default => throw new \Exception("Invalid contract type"),
+        };
+
         if ($this->getUser()->isAdmin()) {
-            $template = new TemplateProcessor(storage_path('templates/contract_with_driver.docx'));
+            $template = new TemplateProcessor(storage_path('templates/'.$contractTemplateName ));
 
             $template->setValue('contractDate', Carbon::now()->format('d.m.Y'));
 
@@ -302,17 +312,32 @@ class UserController extends Controller
             $template->setValue('clientInn', $user->userable->inn);
             $template->setValue('clientPhone', $user->userable->phone_number);
 
-            ob_start();
-            $template->saveAs('php://output');
-            $ret = ob_get_contents();
-            ob_end_clean();
+            // Ensure the directory exists
+            $tempDirPath = storage_path('app/public/temp');
+            if (!FileFacade::exists($tempDirPath)) {
+                FileFacade::makeDirectory($tempDirPath, 0755, true);
+            }
 
-            header("Content-Type: application/force-download");
-            header("Content-Type: application/octet-stream");
-            header("Content-Type: application/download");
-            header('Content-Disposition: attachment; filename=' . $user->id . '-contract_with_driver.docx');
+            // Save the document to a temporary file
+            $tempFilePath = storage_path('app/public/temp/' . $user->id . '-'.$contractTemplateName);
+            $template->saveAs($tempFilePath);
 
-            return $ret;
+            // Create a Request object with the file
+            $uploadedFile = new \Illuminate\Http\UploadedFile(
+                $tempFilePath,
+                $user->id . '-' . $contractTemplateName,
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                null,
+                true // Assuming the file is already moved
+            );
+
+            $file = $this->fileService->upload($uploadedFile, 'user', $userId);
+
+            // Delete the temporary file
+            FileFacade::delete($tempFilePath);
+
+            // Return the response or the file download if needed
+            return response()->json(['message' => 'Contract generated and saved successfully', 'file' => $file]);
         }
 
         return $this->error('Недостаточно прав');

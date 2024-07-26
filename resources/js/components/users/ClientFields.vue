@@ -72,7 +72,12 @@
             <div class="relative z-0 w-full mb-6 group">
                 <Balance v-if="userable.id" :userId="userId"/>
             </div>
-            <a href="#" @click="downloadContract" class="text-blue-600 font-medium">Скачать договор</a>
+            <div class="relative z-0 w-full mb-6 group">
+                <a href="#" @click="downloadContract(contractTypes.withoutDriver, $event)" class="text-blue-600 font-medium">Создать договор аренды без экипажа</a>
+            </div>
+            <div class="relative z-0 w-full mb-6 group">
+                <a href="#" @click="downloadContract(contractTypes.withDriver, $event)" class="text-blue-600 font-medium">Создать договор аренды с экипажем</a>
+            </div>
             <div class="relative z-0 w-full mb-6 group">
                 <Files :modelId="userId" modelType="user"/>
             </div>
@@ -96,6 +101,7 @@ import Balance from "./Balance.vue";
 import Files from "../common/Files.vue"
 import fileDownload from "js-file-download";
 import {UserService} from "../../services/UserService";
+import { EventBus } from '../../helpers/eventBus';
 
 export default {
     components: {ClubCards, Balance, Files, MultiSelect, TextInput, DateInput, Textarea},
@@ -107,6 +113,10 @@ export default {
     data: function () {
         return {
             categories: [],
+            contractTypes: {
+                withoutDriver: 'without_driver',
+                withDriver: 'with_driver'
+            },
         }
     },
     created: async function () {
@@ -115,10 +125,13 @@ export default {
         });
     },
     methods: {
-        downloadContract: function(event) {
+        downloadContract: function(type, event) {
             event.preventDefault()
-            UserService.downloadContract(this.userId)
-                .then(response => fileDownload(response.data, `${this.id}-contract_with_driver.docx`))
+            UserService.downloadContract(this.userId, type)
+                .then(response => {
+                    fileDownload(response.data, `${this.userId}-contract_${type}.docx`);
+                    EventBus.emit('refresh-files');
+                })
                 .catch(error => this.errors = error)
         },
     },

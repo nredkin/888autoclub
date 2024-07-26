@@ -52,7 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/{id}', [UserController::class, 'update']);
         Route::delete('/{id}', [UserController::class, 'delete']);
 
-        Route::get('/contract/{userId}', [UserController::class, 'contract']);
+        Route::get('/contract/{userId}/{type}', [UserController::class, 'contract']);
     });
 
     Route::group(['prefix' => 'clients'], function () {
