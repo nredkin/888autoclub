@@ -295,6 +295,7 @@ class UserController extends Controller
         $contractTemplateName =  match ($type) {
             'without_driver' => 'contract_without_driver.docx',
             'with_driver' => 'contract_with_driver.docx',
+            'card' => 'contract_card.docx',
             default => throw new \Exception("Invalid contract type"),
         };
 
@@ -336,8 +337,8 @@ class UserController extends Controller
             // Delete the temporary file
             FileFacade::delete($tempFilePath);
 
-            // Return the response or the file download if needed
-            return response()->json(['message' => 'Contract generated and saved successfully', 'file' => $file]);
+            // Return the file for download
+            return response()->download(storage_path('app/public/' . $file->path), $file->filename);
         }
 
         return $this->error('Недостаточно прав');

@@ -70,6 +70,9 @@
                 <ClubCards v-if="userable.id" :client="userable"/>
             </div>
             <div class="relative z-0 w-full mb-6 group">
+                <a href="#" @click="downloadContract(contractTypes.card, $event)" class="text-blue-600 font-medium">Создать договор по клубной карте</a>
+            </div>
+            <div class="relative z-0 w-full mb-6 group">
                 <Balance v-if="userable.id" :userId="userId"/>
             </div>
             <div class="relative z-0 w-full mb-6 group">
@@ -115,7 +118,8 @@ export default {
             categories: [],
             contractTypes: {
                 withoutDriver: 'without_driver',
-                withDriver: 'with_driver'
+                withDriver: 'with_driver',
+                card: 'card',
             },
         }
     },

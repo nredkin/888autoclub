@@ -8,6 +8,11 @@ export class OperationService {
         return axios.get(url);
     }
 
+    static getOperationsByModelId(modelType, modelId) {
+        let url = `${this.serverUrl}/operations/${modelType}/${modelId}`;
+        return axios.get(url);
+    }
+
     static store(operation) {
         let url = `${this.serverUrl}/operations`;
         return axios.post(url, operation)

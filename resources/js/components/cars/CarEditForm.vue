@@ -59,10 +59,14 @@
                     </button>
                 </div>
 
-                <Services v-if="car" :carId="car.id" />
+                <Services :carId="id" />
 
                 <div class="relative z-0 w-full mb-6 group">
-                    <Files :modelId="car.id" modelType="car"/>
+                    <Operations :carId="id"/>
+                </div>
+
+                <div class="relative z-0 w-full mb-6 group">
+                    <Files :modelId="id" modelType="car"/>
                 </div>
             </form>
         </div>
@@ -81,16 +85,17 @@ import {ColorService} from "../../services/ColorService";
 import Textarea from "../forms/Textarea.vue";
 import Services from "./Services.vue"
 import Files from "../common/Files.vue"
+import Operations from "./Operations.vue";
 
 export default {
     name: "CarEditForm",
-    components: {Services, Files, Textarea, MySelect, DateInput, Alert, TextInput, Success},
+    components: {Operations, Services, Files, Textarea, MySelect, DateInput, Alert, TextInput, Success},
     data: function () {
         return {
             loading: false,
             id: this.$route.params.id,
             car: {
-                'id': 0,
+                'id': null,
                 'model': '',
                 'vin': '',
                 'year':  '',

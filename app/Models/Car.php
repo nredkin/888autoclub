@@ -19,4 +19,9 @@ class Car extends Model
     {
         return $this->morphMany(File::class, 'fileable');
     }
+
+    public function operations()
+    {
+        return $this->hasMany(Operation::class);
+    }
 }

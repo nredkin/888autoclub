@@ -99,4 +99,9 @@ class User extends Authenticatable
     {
         return $this->morphMany(File::class, 'fileable');
     }
+
+    public function operations()
+    {
+        return $this->hasMany(Operation::class);
+    }
 }

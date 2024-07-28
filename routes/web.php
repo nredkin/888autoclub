@@ -130,6 +130,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'operations'], function () {
         Route::get('/', [OperationController::class, 'list']);
+        Route::get('/{modelType}/{modelId}', [OperationController::class, 'listByModelId']);
         Route::post('/', [OperationController::class, 'store']);
         Route::get('/{id}', [OperationController::class, 'show']);
         Route::put('/{id}', [OperationController::class, 'update']);
