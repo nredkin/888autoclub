@@ -125,7 +125,7 @@ export default {
             this.isHidden = true
         },
         loadOperations: function () {
-            OperationService.getOperations(this.client.id).then( response => this.operations = response.data.operations)
+            OperationService.getOperationsByModelId('user', this.userId).then( response => this.operations = response.data.operations)
         },
         storeOperation: function (event) {
             event.preventDefault()

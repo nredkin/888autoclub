@@ -20,7 +20,7 @@ class OperationController extends Controller
     }
     public function list()
     {
-        $operations = $this->operations::all();
+        $operations = Operation::with('user.userable', 'car')->get();
         return new JsonResponse(['operations' => OperationResource::collection($operations)]);
     }
 

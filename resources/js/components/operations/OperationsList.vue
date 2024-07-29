@@ -48,12 +48,12 @@
                         </td>
                         <td class="">
                             <div class="flex items-center pl-5">
-                                <p class="text-base font-medium leading-none text-gray-700 mr-2">{{ operation.car_id }}</p>
+<!--                                <p class="text-base font-medium leading-none text-gray-700 mr-2">{{ operation.car.model }}</p>-->
                             </div>
                         </td>
                         <td class="">
                             <div class="flex items-center pl-5">
-                                <p class="text-base font-medium leading-none text-gray-700 mr-2">{{ operation.client_id }}</p>
+                                <p class="text-base font-medium leading-none text-gray-700 mr-2">{{ operation.user.userable.fullName }}</p>
                             </div>
                         </td>
                         <td class="pl-4">
