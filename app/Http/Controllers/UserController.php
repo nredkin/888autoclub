@@ -6,6 +6,7 @@ use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\Client;
+use App\Models\Contract;
 use App\Models\Employee;
 use App\Models\User;
 use App\Services\FileService;
@@ -302,6 +303,9 @@ class UserController extends Controller
         if ($this->getUser()->isAdmin()) {
             $template = new TemplateProcessor(storage_path('templates/'.$contractTemplateName ));
 
+            $contractNumber = (int)Contract::latest()->value('contract_number') + 1;
+
+            $template->setValue('contractNumber', $contractNumber);
             $template->setValue('contractDate', Carbon::now()->format('d.m.Y'));
 
             $template->setValue('clientFullName', $user->userable->getFullName());
@@ -336,6 +340,13 @@ class UserController extends Controller
 
             // Delete the temporary file
             FileFacade::delete($tempFilePath);
+
+            //save the contract record with a unique number
+            $contract = new Contract([
+                'contract_number' => $contractNumber,
+                'file_id' => $file->id,
+            ]);
+            $contract->save();
 
             // Return the file for download
             return response()->download(storage_path('app/public/' . $file->path), $file->filename);
