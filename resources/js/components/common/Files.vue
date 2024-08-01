@@ -1,5 +1,5 @@
 <template>
-  <div class="grid md:grid-cols-3 md:gap-6">
+  <div class="w-1/2">
       <div>
           <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white mt-10">Файлы</h3>
           <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Загрузить

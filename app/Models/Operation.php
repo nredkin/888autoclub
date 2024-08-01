@@ -24,4 +24,14 @@ class Operation extends Model
     {
         return $this->belongsTo(Branch::class);
     }
+
+    public function deal()
+    {
+        return $this->belongsTo(Deal::class);
+    }
+
+    public function expenseItem()
+    {
+        return $this->belongsTo(ExpenseItem::class);
+    }
 }

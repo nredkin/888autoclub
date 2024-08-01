@@ -3,6 +3,8 @@
 use App\Models\Branch;
 use App\Models\Car;
 use App\Models\Client;
+use App\Models\Deal;
+use App\Models\ExpenseItem;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -21,6 +23,8 @@ return new class extends Migration
             $table->foreignIdFor(Branch::class)->nullable();
             $table->foreignIdFor(Car::class)->nullable();
             $table->foreignIdFor(User::class)->nullable();
+            $table->foreignIdFor(Deal::class)->nullable();
+            $table->foreignIdFor(ExpenseItem::class)->nullable();
             $table->decimal('sum')->default(0);
             $table->tinyInteger('type')->default(0);
             $table->boolean('client_balance_change')->default(0);

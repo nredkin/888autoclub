@@ -29,6 +29,9 @@ import DealsList from "./components/deals/DealsList.vue";
 import DealCreateForm from "./components/deals/DealCreateForm.vue";
 import DealEditForm from "./components/deals/DealEditForm.vue";
 import OperationsList from "./components/operations/OperationsList.vue";
+import ExpenseItemsList from "./components/expenseItems/ExpenseItemsList.vue";
+import ExpenseItemCreateForm from "./components/expenseItems/ExpenseItemCreateForm.vue";
+import ExpenseItemEditForm from "./components/expenseItems/ExpenseItemEditForm.vue";
 
 const router = createRouter({
     history: createWebHashHistory(),
@@ -160,6 +163,22 @@ const router = createRouter({
             name: 'listOperations',
             path: '/operations',
             component: OperationsList
+        },
+        //Статьи расходов
+        {
+            name: 'listExpenseItems',
+            path: '/expenseItems',
+            component: ExpenseItemsList
+        },
+        {
+            name: 'createExpenseItem',
+            path: '/expenseItems/create',
+            component: ExpenseItemCreateForm
+        },
+        {
+            name: 'editExpenseItem',
+            path: '/expenseItems/:id',
+            component: ExpenseItemEditForm
         },
 
 

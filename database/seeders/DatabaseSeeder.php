@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             BranchSeeder::class,
             UserSeeder::class,
             ColorSeeder::class,
+            ExpenseItemSeeder::class,
             ClubCardLevelSeeder::class,
             CarSeeder::class,
             DealSeeder::class,

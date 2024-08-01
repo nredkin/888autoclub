@@ -11,6 +11,7 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DealController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ExpenseItemController;
 use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\InvestorPaymentController;
@@ -152,6 +153,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{modelType}/{modelId}', [FileController::class, 'index'])->name('files.index');
         Route::post('/{modelType}/{modelId}', [FileController::class, 'upload'])->name('files.upload');
         Route::delete('/{id}', [FileController::class, 'delete'])->name('files.delete');
+    });
+
+    Route::group(['prefix' => 'expenseItems'], function () {
+        Route::get('/', [ExpenseItemController::class, 'list']);
+        Route::post('/', [ExpenseItemController::class, 'store']);
+        Route::get('/{id}', [ExpenseItemController::class, 'show']);
+        Route::put('/{id}', [ExpenseItemController::class, 'update']);
+        Route::delete('/{id}', [ExpenseItemController::class, 'delete']);
     });
 
 

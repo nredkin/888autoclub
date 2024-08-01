@@ -21,6 +21,9 @@
                     <my-select name="car_id" v-model:value="deal.car_id" title="Наименование автомобиля" :values="cars" displayField="model"/>
                 </div>
                 <div class="relative z-0 w-full mb-6 group">
+                    <NumberInput title="Сумма обеспечительного платежа" v-model:value="deal.security_deposit" min="0" step="0.01"/>
+                </div>
+                <div class="relative z-0 w-full mb-6 group">
                     <DateInput title="Дата договора" name="contract_date" v-model:value="deal.contract_date" type="date"/>
                 </div>
                 <div class="relative z-0 w-full mb-6 group">
@@ -46,7 +49,11 @@
                 </div>
 
                 <div class="relative z-0 w-full mb-6 group">
-                    <Files :modelId="deal.id" modelType="deal"/>
+                    <Operations :model-id="id" modelType="deal" :deal-id="deal.id" :branch-id="deal.branch_id" :car-id="deal.car_id" :user-id="deal.user_id"/>
+                </div>
+
+                <div class="relative z-0 w-full mb-6 group">
+                    <Files :modelId="id" modelType="deal"/>
                 </div>
             </form>
 
@@ -66,10 +73,12 @@ import Textarea from "../forms/Textarea.vue";
 import DateInput from "../forms/DateInput.vue";
 import MySelect from "../forms/MySelect.vue";
 import Files from "../common/Files.vue"
+import NumberInput from "../forms/NumberInput.vue";
+import Operations from "../common/Operations.vue";
 
 export default {
     name: "DealEditForm",
-    components: {Files, MySelect, DateInput, Textarea, TextInput, Success, Alert},
+    components: {Operations, NumberInput, Files, MySelect, DateInput, Textarea, TextInput, Success, Alert},
     data: function () {
         return {
             loading: false,

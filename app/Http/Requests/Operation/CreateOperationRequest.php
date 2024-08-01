@@ -37,6 +37,31 @@ class CreateOperationRequest extends FormRequest
         return $this->input('user_id');
     }
 
+    public function getCarId(): int
+    {
+        return $this->input('car_id');
+    }
+
+    public function getBranchId(): int
+    {
+        return $this->input('branch_id');
+    }
+
+    public function getDealId(): int
+    {
+        return $this->input('deal_id');
+    }
+
+    public function getExpenseItemId(): int
+    {
+        return $this->input('expense_item_id');
+    }
+
+    public function getType(): int
+    {
+        return $this->input('type');
+    }
+
     public function getClientBalanceChange(): int
     {
         return $this->input('client_balance_change') ?? 0;

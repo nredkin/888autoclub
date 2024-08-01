@@ -35,7 +35,12 @@ class OperationController extends Controller
         $operation = $this->operations->newInstance();
 
         $operation->user_id = $request->getUserId();
+        $operation->car_id = $request->getCarId();
+        $operation->deal_id = $request->getDealId();
+        $operation->branch_id = $request->getBranchId();
+        $operation->expense_item_id = $request->getExpenseItemId();
         $operation->sum = $request->getSum();
+        $operation->type = $request->getType();
         $operation->client_balance_change = $request->getClientBalanceChange();
 
         $operation->save();
@@ -58,6 +63,8 @@ class OperationController extends Controller
                 return User::with('operations')->findOrFail($modelId);
             case 'car':
                 return Car::with('operations')->findOrFail($modelId);
+            case 'deal':
+                return Deal::with('operations')->findOrFail($modelId);
             default:
                 throw new \Exception("Invalid model type");
         }

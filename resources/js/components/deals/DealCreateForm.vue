@@ -18,6 +18,9 @@
                     <my-select name="car_id" v-model:value="deal.car_id" title="Наименование автомобиля" :values="cars" displayField="model"/>
                 </div>
                 <div class="relative z-0 w-full mb-6 group">
+                    <NumberInput title="Сумма обеспечительного платежа" v-model:value="deal.security_deposit" min="0" step="0.01"/>
+                </div>
+                <div class="relative z-0 w-full mb-6 group">
                     <DateInput title="Дата договора" name="contract_date" v-model:value="deal.contract_date" type="date"/>
                 </div>
                 <div class="relative z-0 w-full mb-6 group">
@@ -54,10 +57,11 @@ import {ClientService} from "../../services/ClientService";
 import MySelect from "../forms/MySelect.vue";
 import DateInput from "../forms/DateInput.vue";
 import Textarea from "../forms/Textarea.vue";
+import NumberInput from "../forms/NumberInput.vue";
 
 export default {
     name: "DealCreateForm",
-    components: {Textarea, DateInput, MySelect, Alert, TextInput, Success},
+    components: {NumberInput, Textarea, DateInput, MySelect, Alert, TextInput, Success},
     data: function () {
         return {
             loading: false,
@@ -66,7 +70,7 @@ export default {
                 'user_id': null,
                 'car_id': null,
                 'branch_id': null,
-                'security_deposit': 0,
+                'security_deposit': 30000,
                 'contract_date': '',
                 'rental_start': '',
                 'rental_end': '',
