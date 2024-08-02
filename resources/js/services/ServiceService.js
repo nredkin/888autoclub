@@ -8,6 +8,11 @@ export class ServiceService {
         return axios.get(url);
     }
 
+    static getServicesByDealId(dealId){
+        let url = `${this.serverUrl}/services/deal/${dealId}`;
+        return axios.get(url);
+    }
+
     static store(service) {
         let url = `${this.serverUrl}/services`;
         return axios.post(url, service)
@@ -32,4 +37,6 @@ export class ServiceService {
         let url = `${this.serverUrl}/services/dict`;
         return axios.get(url)
     }
+
+
 }

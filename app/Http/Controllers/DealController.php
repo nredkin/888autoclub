@@ -6,6 +6,7 @@ use App\Http\Requests\Deal\CreateDealRequest;
 use App\Http\Requests\Deal\UpdateDealRequest;
 use App\Http\Resources\DealResource;
 use App\Models\Deal;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -85,6 +86,46 @@ class DealController extends Controller
         $deal->delete();
 
         return $this->success();
+    }
+
+
+
+    public function attachService(Request $request, $dealId, $serviceId)
+    {
+        $deal = Deal::findOrFail($dealId);
+//        $serviceId = $request->input('service_id');
+        $price = $request->input('price', null);
+        $rentalStart = $request->input('rental_start', null);
+        $rentalEnd = $request->input('rental_end', null);
+
+        // Check if the service is already attached
+        if ($deal->services()->where('service_id', $serviceId)->exists()) {
+            return response()->json(['message' => 'Услуга уже добавлена.'], 400);
+        }
+
+        // Attach the service to the deal with additional data
+        $deal->services()->attach($serviceId, [
+            'price' => $price,
+            'rental_start' => $rentalStart,
+            'rental_end' => $rentalEnd,
+        ]);
+
+        return response()->json(['message' => 'Услуга добавлена успешно.']);
+    }
+
+
+    // Detach a service from a deal
+    public function detachService($dealId, $serviceId)
+    {
+        $deal = Deal::findOrFail($dealId);
+
+        // Detach the service from the deal
+        $deal->services()->detach($serviceId);
+
+        return response()->json([
+            'message' => 'Service detached successfully',
+            'services' => $deal->services,
+        ], 200);
     }
 
 }

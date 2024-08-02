@@ -19,4 +19,9 @@ class Service extends Model
     {
         return $this->morphMany(File::class, 'fileable');
     }
+
+    public function deals()
+    {
+        return $this->belongsToMany(Deal::class);
+    }
 }

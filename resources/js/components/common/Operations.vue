@@ -5,7 +5,6 @@
           <table class="table border">
               <thead>
               <tr>
-                  <td>ID</td>
                   <td>Дата</td>
                   <td>Статья расходов</td>
                   <td>Сумма</td>
@@ -14,7 +13,6 @@
               </thead>
               <tbody v-if="operations.length > 0">
               <tr v-for="operation in operations">
-                  <td>{{ operation.id }}</td>
                   <td>{{ operation.date }}</td>
                   <td>{{ getExpenseItemName(operation.expense_item_id)}}</td>
                   <td>{{ operation.sum }}</td>

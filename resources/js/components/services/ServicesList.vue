@@ -14,10 +14,10 @@
                             </div>
                         </td>
                         <td class="pl-4">
-                            <p class="text-sm leading-none text-gray-600 ml-2">Действия</p>
+                            <p class="text-sm leading-none text-gray-600 ml-2">Услуга активна</p>
                         </td>
                         <td class="pl-4">
-                            <p class="text-sm leading-none text-gray-600 ml-2">Услуга активна</p>
+                            <p class="text-sm leading-none text-gray-600 ml-2">Действия</p>
                         </td>
                     </tr>
                     </thead>

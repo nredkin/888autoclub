@@ -53,6 +53,10 @@
                 </div>
 
                 <div class="relative z-0 w-full mb-6 group">
+                    <DealServices :deal="deal"/>
+                </div>
+
+                <div class="relative z-0 w-full mb-6 group">
                     <Files :modelId="id" modelType="deal"/>
                 </div>
             </form>
@@ -75,10 +79,11 @@ import MySelect from "../forms/MySelect.vue";
 import Files from "../common/Files.vue"
 import NumberInput from "../forms/NumberInput.vue";
 import Operations from "../common/Operations.vue";
+import DealServices from "./DealServices.vue";
 
 export default {
     name: "DealEditForm",
-    components: {Operations, NumberInput, Files, MySelect, DateInput, Textarea, TextInput, Success, Alert},
+    components: {DealServices, Operations, NumberInput, Files, MySelect, DateInput, Textarea, TextInput, Success, Alert},
     data: function () {
         return {
             loading: false,

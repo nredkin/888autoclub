@@ -118,6 +118,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{id}', [ServiceController::class, 'show']);
         Route::put('/{id}', [ServiceController::class, 'update']);
         Route::delete('/{id}', [ServiceController::class, 'delete']);
+        Route::get('/deal/{dealId}', [ServiceController::class, 'listByDealId']);
+
     });
 
     Route::group(['prefix' => 'deals'], function () {
@@ -127,6 +129,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{id}', [DealController::class, 'show']);
         Route::put('/{id}', [DealController::class, 'update']);
         Route::delete('/{id}', [DealController::class, 'delete']);
+        Route::post('/{dealId}/services/{serviceId}', [DealController::class, 'attachService']);
+        Route::delete('/{dealId}/services/{serviceId}', [DealController::class, 'detachService']);
     });
 
     Route::group(['prefix' => 'operations'], function () {

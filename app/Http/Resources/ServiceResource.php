@@ -14,6 +14,9 @@ class ServiceResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        // Use custom_price if available, otherwise fallback to servicePrices
+        $price = $this->custom_price ?? $this->servicePrices->first()?->price;
+
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -25,6 +28,10 @@ class ServiceResource extends JsonResource
             'available_from_hours' => $this->available_from_hours,
             'available_to_hours' => $this->available_to_hours,
             'invoice_name' => $this->invoice_name,
+            'price' => $price,
+            'rental_start' => $this->rental_start,
+            'rental_end' => $this->rental_end,
+            'price_total' => $this->price_total,
         ];
     }
 }
