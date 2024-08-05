@@ -104,6 +104,7 @@ export default {
                 car_id: null,
                 deal_id: null,
                 sum: 0,
+                type: 0,
                 client_balance_change: 1,
             },
             user: {},
