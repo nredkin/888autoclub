@@ -102,12 +102,20 @@ export default {
                 car_id: null,
                 deal_id: null,
                 sum: 0,
-                client_balance_change: 1,
+                type: 1,
+                client_balance_change: 0,
+            },
+            user: {
+                id: null,
+                email: null,
+                name: null,
             },
         }
     },
     created: async function () {
         this.loadOperations();
+        UserService.currentUser()
+            .then(response => this.user = response.data.user)
     },
     methods: {
         showModal: function () {
@@ -122,6 +130,8 @@ export default {
         storeOperation: function (event) {
             event.preventDefault()
             this.errors = null;
+            this.newOperation.car_id = this.carId;
+            this.newOperation.user_id = this.user.id;
             OperationService.store(this.newOperation)
                 .then(response => {
                     this.operations.push(response.data.operation)

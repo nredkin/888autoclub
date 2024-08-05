@@ -1,15 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Models;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Operation\CreateOperationRequest;
 use App\Http\Resources\OperationResource;
-use App\Models\Car;
-use App\Models\Client;
-use App\Models\Deal;
-use App\Models\Operation;
-use App\Models\Service;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
 
 class OperationController extends Controller
@@ -47,10 +42,18 @@ class OperationController extends Controller
 
         if ($operation->client_balance_change == 1) {
             $user = User::with('userable')->find($operation->user_id);
-            $client = Client::find($user->userable->id);
-            $client->update([
-                'balance' => $client->balance + $operation->sum
-            ]);
+            if ($user->userable_type == Client::class) {
+                $client = Client::find($user->userable->id);
+                $newBalance = $client->balance;
+                if ($operation->type == Operation::TYPE_POSITIVE ) {
+                    $newBalance += $operation->sum;
+                } else if ($operation->type == Operation::TYPE_NEGATIVE) {
+                    $newBalance -= $operation->sum;
+                }
+                $client->update([
+                    'balance' => $newBalance
+                ]);
+            }
         }
 
         return new JsonResponse(['operation' => OperationResource::make($operation)]);

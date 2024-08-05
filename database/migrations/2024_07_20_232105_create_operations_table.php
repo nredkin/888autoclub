@@ -25,7 +25,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->nullable();
             $table->foreignIdFor(Deal::class)->nullable();
             $table->foreignIdFor(ExpenseItem::class)->nullable();
-            $table->decimal('sum')->default(0);
+            $table->decimal('sum', 10, 2)->default(0);
             $table->tinyInteger('type')->default(0);
             $table->boolean('client_balance_change')->default(0);
             $table->timestamps();

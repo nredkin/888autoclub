@@ -10,6 +10,8 @@ class Operation extends Model
     use HasFactory;
     protected $guarded = [];
 
+    public const TYPE_POSITIVE = 0;
+    public const TYPE_NEGATIVE = 1;
     public function user()
     {
         return $this->belongsTo(User::class);

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('middle_name')->nullable();
             $table->string('last_name');
             $table->string('phone_number', 32)->unique()->nullable();
-            $table->decimal('balance')->default(0);
+            $table->decimal('balance', 12, 2)->default(0);
             $table->integer('bonus_points')->default(0);
             $table->date('birthday')->nullable();
             $table->string('passport_series')->nullable();
