@@ -1,10 +1,14 @@
 <?php
 
-namespace App\Models;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Operation\CreateOperationRequest;
 use App\Http\Resources\OperationResource;
+use App\Models\Car;
+use App\Models\Client;
+use App\Models\Deal;
+use App\Models\Operation;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 
 class OperationController extends Controller
@@ -47,7 +51,6 @@ class OperationController extends Controller
                 $newBalance = $client->balance;
                 if ($operation->type == Operation::TYPE_POSITIVE ) {
                     $newBalance += $operation->sum;
-                } else if ($operation->type == Operation::TYPE_NEGATIVE) {
                     $newBalance -= $operation->sum;
                 }
                 $client->update([

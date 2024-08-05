@@ -16,6 +16,7 @@ use App\Http\Controllers\ExpensesController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\InvestorPaymentController;
+use App\Http\Controllers\OperationController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProxyController;
 use App\Http\Controllers\ServiceController;
@@ -23,7 +24,6 @@ use App\Http\Controllers\ServicePriceController;
 use App\Http\Controllers\SourceController;
 use App\Http\Controllers\StatsController;
 use App\Http\Controllers\UserController;
-use App\Models\OperationController;
 use Illuminate\Support\Facades\Route;
 
 /*
