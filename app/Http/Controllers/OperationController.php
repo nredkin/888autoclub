@@ -62,6 +62,19 @@ class OperationController extends Controller
         return new JsonResponse(['operation' => OperationResource::make($operation)]);
     }
 
+    public function delete(int $id): JsonResponse
+    {
+        $operation = $this->operations->find($id);
+
+        if (!$operation) {
+            return $this->error('Операция не найдена');
+        }
+
+        $operation->delete();
+
+        return $this->success();
+    }
+
     protected function getModelInstance($modelType, $modelId)
     {
         switch ($modelType) {
