@@ -39,7 +39,7 @@
 
               <!-- Main modal -->
               <div v-show="!isHidden" tabindex="-1"
-                   class="fixed flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                   class="fixed flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                   <div class="relative w-full max-w-md max-h-full">
                       <!-- Modal content -->
                       <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -58,11 +58,11 @@
                                   Добавление услуги</h3>
                               <form class="space-y-6" @submit="addService" action="#">
                                   <div>
-                                      <div class="relative z-1 w-full mb-6 group">
+                                      <div class="relative w-full mb-6 group">
                                           <my-select name="serviceId" v-model:value="newService.id" title="Услуга" :values="availableServices"/>
                                       </div>
                                       <!-- Checkbox for Custom Price -->
-                                      <div class="relative z-1 w-full mb-6 group">
+                                      <div class="relative w-full mb-6 group">
                                           <Checkbox
                                               title="Установить стоимость вручную"
                                               v-model:checked="enableCustomPrice"
@@ -73,7 +73,7 @@
                                       </div>
 
                                       <!-- Checkbox for Custom Rental Dates -->
-                                      <div class="relative z-1 w-full mb-6 group">
+                                      <div class="relative w-full mb-6 group">
                                               <Checkbox
                                                   title="Установить даты аренды вручную"
                                                   v-model:checked="enableCustomDate"

@@ -41,7 +41,7 @@
 
               <!-- Main modal -->
               <div v-show="!isHidden" tabindex="-1"
-                   class="fixed flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                   class="fixed flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                   <div class="relative w-full max-w-md max-h-full">
                       <!-- Modal content -->
                       <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -60,17 +60,17 @@
                                   Добавление операции</h3>
                               <form class="space-y-6" @submit="storeOperation" action="#">
                                   <div>
-                                      <div class="relative z-1 w-full mb-6 group">
+                                      <div class="relative w-full mb-6 group">
                                           <DateInput title="Дата операции" v-model:value="newOperation.date" type="date"/>
                                       </div>
-                                      <div class="relative z-0 w-full mb-6 group">
+                                      <div class="relative w-full mb-6 group">
                                           <my-select title="Статья расходов" v-model:value="newOperation.expense_item_id" :values="expenseItems"/>
                                       </div>
-                                      <div class="relative z-1 w-full mb-6 group">
+                                      <div class="relative w-full mb-6 group">
                                         <NumberInput title="Сумма" v-model:value="newOperation.sum"
                                                    min="0" step="0.01"/>
                                       </div>
-                                      <div class="relative z-1 w-full mb-6 group">
+                                      <div class="relative w-full mb-6 group">
                                         <p>Тип операции:</p>
                                             <label>
                                               <input type="radio" name="operationType" v-model="newOperation.type" value="0"> Доход
@@ -80,7 +80,7 @@
                                               <input type="radio" name="operationType" v-model="newOperation.type" value="1"> Расход
                                             </label>
                                       </div>
-                                      <div class="relative z-1 w-full mb-6 group">
+                                      <div class="relative w-full mb-6 group">
                                           <Checkbox
                                               title="Списать или зачислить на счет клиента"
                                               v-model:checked="newOperation.client_balance_change"

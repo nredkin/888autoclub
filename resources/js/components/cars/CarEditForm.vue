@@ -61,11 +61,11 @@
 
                 <Services :carId="id" />
 
-                <div class="relative z-0 w-full mb-6 group">
+                <div class="w-full mb-6 group">
                     <Operations :carId="id"/>
                 </div>
 
-                <div class="relative z-0 w-full mb-6 group">
+                <div class="w-full mb-6 group">
                     <Files :modelId="id" modelType="car"/>
                 </div>
             </form>

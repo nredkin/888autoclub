@@ -66,13 +66,13 @@
         </div>
 
 <!--        <div class="grid md:grid-cols-2 md:gap-6">-->
-            <div class="relative z-0 w-full mb-6 group">
+            <div class="w-full mb-6 group">
                 <ClubCards v-if="userable.id" :client="userable"/>
             </div>
             <div class="relative z-0 w-full mb-6 group">
                 <a href="#" @click="downloadContract(contractTypes.card, $event)" class="text-blue-600 font-medium">Создать договор по клубной карте</a>
             </div>
-            <div class="relative z-0 w-full mb-6 group">
+            <div class="w-full mb-6 group">
                 <Balance v-if="userable.id" :userId="userId"/>
             </div>
             <div class="relative z-0 w-full mb-6 group">
@@ -81,7 +81,7 @@
             <div class="relative z-0 w-full mb-6 group">
                 <a href="#" @click="downloadContract(contractTypes.withDriver, $event)" class="text-blue-600 font-medium">Создать договор аренды с экипажем</a>
             </div>
-            <div class="relative z-0 w-full mb-6 group">
+            <div class="w-full mb-6 group">
                 <Files :modelId="userId" modelType="user"/>
             </div>
 <!--        </div>-->

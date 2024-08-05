@@ -8,16 +8,16 @@
 
             <form @submit="update">
 
-                <div class="relative z-1 w-full mb-6 group">
+                <div class="relative z-0 w-full mb-6 group">
                     <my-select name="branch_id" v-model:value="deal.branch_id" title="Филиал" :values="branches"/>
                 </div>
-                <div class="relative z-1 w-full mb-6 group">
+                <div class="relative z-0 w-full mb-6 group">
                     <my-select name="deal_type" v-model:value="deal.deal_type" title="Тип сделки" :values="dealTypes"/>
                 </div>
-                <div class="relative z-1 w-full mb-6 group">
+                <div class="relative z-0 w-full mb-6 group">
                     <my-select name="client_id" v-model:value="deal.user_id" title="ФИО клиента" :values="clients" displayField="fullName"/>
                 </div>
-                <div class="relative z-1 w-full mb-6 group">
+                <div class="relative z-0 w-full mb-6 group">
                     <my-select name="car_id" v-model:value="deal.car_id" title="Наименование автомобиля" :values="cars" displayField="model"/>
                 </div>
                 <div class="relative z-0 w-full mb-6 group">
@@ -48,15 +48,15 @@
 
                 </div>
 
-                <div class="relative z-0 w-full mb-6 group">
+                <div class="w-full mb-6 group">
                     <Operations :model-id="id" modelType="deal" :deal-id="deal.id" :branch-id="deal.branch_id" :car-id="deal.car_id" :user-id="deal.user_id"/>
                 </div>
 
-                <div class="relative z-0 w-full mb-6 group">
+                <div class="w-full mb-6 group">
                     <DealServices :deal="deal"/>
                 </div>
 
-                <div class="relative z-0 w-full mb-6 group">
+                <div class="w-full mb-6 group">
                     <Files :modelId="id" modelType="deal"/>
                 </div>
             </form>
