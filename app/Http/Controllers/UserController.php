@@ -33,29 +33,29 @@ class UserController extends Controller
     public function index(Request $request): JsonResponse
     {
         $user = $this->getUser();
-
-//        if ($user->isAdmin()) {
-            //$users = $this->users->with('userable')->newQuery();
-        $users = $this->users
+        $usersQuery = $this->users
             ->with(['userable' => function ($morphTo) {
                 $morphTo->morphWith([
                     Client::class => ['clubCards'],
                 ]);
-            }])
-            ->paginate(self::PER_PAGE);
+            }]);
 
-//        } else {
-//            $users = $this->users->newQuery()->where('branch_id', $user->getBranchId());
-//        }
+        if ($query = $request->query('query')) {
+            $usersQuery->whereHas('userable', function ($q) use ($query) {
+                $q->where('first_name', 'like', "%{$query}%")
+                    ->orWhere('middle_name', 'like', "%{$query}%")
+                    ->orWhere('last_name', 'like', "%{$query}%");
 
-//        if ($query = $request->query('query')) {
-//            $users
-//                ->where('first_name', 'like', "%{$query}%")
-//                ->orWhere('middle_name', 'like', "%{$query}%")
-//                ->orWhere('last_name', 'like', "%{$query}%");
-//        }
+            })
+                ->orWhere(function ($q) use ($query) {
+                    $q->where('userable_type', Client::class)
+                        ->whereHasMorph('userable', [Client::class], function ($clientQuery) use ($query) {
+                            $clientQuery->where('phone_number', 'like', "%{$query}%");
+                        });
+            });
+        }
 
-        //$users = $users->paginate(self::PER_PAGE);
+        $users = $usersQuery->paginate(self::PER_PAGE);
 
         return new JsonResponse(
             [

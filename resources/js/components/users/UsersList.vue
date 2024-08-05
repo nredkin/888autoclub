@@ -22,6 +22,16 @@
 <!--                        </td>-->
                         <td class="">
                             <div class="flex items-center pl-5">
+                                <p class="text-base font-medium leading-none text-gray-700 mr-2">ФИО</p>
+                            </div>
+                        </td>
+                        <td class="">
+                            <div class="flex items-center pl-5">
+                                <p class="text-base font-medium leading-none text-gray-700 mr-2">Телефон</p>
+                            </div>
+                        </td>
+                        <td class="">
+                            <div class="flex items-center pl-5">
                                 <p class="text-base font-medium leading-none text-gray-700 mr-2">Email</p>
                             </div>
                         </td>
@@ -43,6 +53,16 @@
 <!--                                <p class="text-base font-medium leading-none text-gray-700 mr-2">{{ user.name }}</p>-->
 <!--                            </div>-->
 <!--                        </td>-->
+                        <td class="">
+                            <div class="flex items-center pl-5">
+                                <p class="text-base font-medium leading-none text-gray-700 mr-2">{{ user.userable.fullName }}</p>
+                            </div>
+                        </td>
+                        <td class="">
+                            <div class="flex items-center pl-5">
+                                <p class="text-base font-medium leading-none text-gray-700 mr-2">{{ user.userable.phoneNumber }}</p>
+                            </div>
+                        </td>
                         <td class="">
                             <div class="flex items-center pl-5">
                                 <p class="text-base font-medium leading-none text-gray-700 mr-2">{{ user.email }}</p>
