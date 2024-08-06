@@ -28,8 +28,4 @@ export class CarService {
         return axios.delete(url)
     }
 
-    static dict() {
-        let url = `${this.serverUrl}/cars/dict`;
-        return axios.get(url)
-    }
 }

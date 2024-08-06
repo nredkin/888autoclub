@@ -33,10 +33,5 @@ export class ServiceService {
         return axios.delete(url)
     }
 
-    static dict() {
-        let url = `${this.serverUrl}/services/dict`;
-        return axios.get(url)
-    }
-
 
 }

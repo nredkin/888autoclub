@@ -33,4 +33,14 @@ export class ServicePriceService {
         return axios.delete(url)
     }
 
+    static storeByServiceAndCar(newService, newServicePrices) {
+        let url = `${this.serverUrl}/servicePrices/storeByServiceAndCar`;
+        return axios.post(url, {newService, newServicePrices})
+    }
+
+    static deleteByServiceAndCar(carId, serviceId) {
+        let url = `${this.serverUrl}/servicePrices/car-services/${carId}/prices/${serviceId}`;
+        return axios.delete(url)
+    }
+
 }

@@ -150,6 +150,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{id}', [ServicePriceController::class, 'show']);
         Route::put('/{id}', [ServicePriceController::class, 'update']);
         Route::delete('/{id}', [ServicePriceController::class, 'delete']);
+        Route::post('/storeByServiceAndCar', [ServicePriceController::class, 'storeByServiceAndCar']);
+        Route::delete('/car-services/{carId}/prices/{serviceId}', [ServicePriceController::class, 'deleteByServiceAndCar']);
     });
 
     Route::group(['prefix' => 'files'], function () {
