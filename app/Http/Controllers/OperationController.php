@@ -28,6 +28,7 @@ class OperationController extends Controller
         // Apply filters if they exist
         if ($query && isset($query['filters'])) {
             $filters = $query['filters'];
+            logger($filters);
 
             // Filter by branch_id if 'branches' filter is present
             if (isset($filters['branches'])) {
@@ -41,6 +42,22 @@ class OperationController extends Controller
 
             if (isset($filters['users'])) {
                 $operationsQuery->whereIn('user_id', $filters['users']);
+            }
+
+            if (isset($filters['date_from'])) {
+                $operationsQuery->where('date', '>=', $filters['date_from']);
+            }
+
+            if (isset($filters['date_to'])) {
+                $operationsQuery->where('date', '<=', $filters['date_to']);
+            }
+
+            if (isset($filters['type'])) {
+                $operationsQuery->where('type', '=', $filters['type']);
+            }
+
+            if (isset($filters['client_balance_change'])) {
+                $operationsQuery->where('client_balance_change', '=', $filters['client_balance_change']);
             }
         }
 

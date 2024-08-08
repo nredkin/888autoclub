@@ -6,42 +6,61 @@
             <h3 class="text-4xl font-extrabold dark:text-white">Финансовые операции</h3>
             <div class="mt-7 overflow-x-auto">
                 <form @submit="update">
-                    <div class="grid md:grid-cols-5 md:gap-6 mt-4 rounded-full p-4 mb-10 border border-gray-100 rounded-0">
-                        <div class="relative z-0 group rounded-full">
-                            <MultiSelect
-                                title="Филиал"
-                                v-model:value="query.filters.branches"
-                                :values="branches || []"
-                                :multiple="true"
-                            />
+                    <div class=" mt-4 rounded-full p-4 mb-10 border border-gray-100 rounded-0">
+                        <div class="grid md:grid-cols-5 md:gap-6">
+                            <div class="relative z-0 group rounded-full">
+                                <DateInput title="Дата: от" v-model:value="query.filters.date_from" type="date"/>
+                            </div>
+                            <div class="relative z-0 group rounded-full">
+                                <DateInput title="Дата: до" v-model:value="query.filters.date_to" type="date"/>
+                            </div>
+                            <div class="relative z-0 group rounded-full">
+                                <MultiSelect
+                                    title="Филиал"
+                                    v-model:value="query.filters.branches"
+                                    :values="branches || []"
+                                    :multiple="true"
+                                />
+                            </div>
+                            <div class="relative z-0 group rounded-full">
+                                <MultiSelect
+                                    title="Автомобиль"
+                                    v-model:value="query.filters.cars"
+                                    :values="cars || []"
+                                    :multiple="true"
+                                    label="model"
+                                />
+                            </div>
+                            <div class="relative z-0 group rounded-full">
+                                <MultiSelect
+                                    title="Клиент"
+                                    v-model:value="query.filters.users"
+                                    :values="clients || []"
+                                    :multiple="true"
+                                    label="fullName"
+                                />
+                            </div>
+
                         </div>
-                        <div class="relative z-0 group rounded-full">
-                            <MultiSelect
-                                title="Автомобиль"
-                                v-model:value="query.filters.cars"
-                                :values="cars || []"
-                                :multiple="true"
-                                label="model"
-                            />
+                        <div class="grid md:grid-cols-4 md:gap-6 mt-4">
+                            <div class="relative z-0 group rounded-full">
+                                <my-select title="Тип операции" v-model:value="query.filters.type" :values="types"/>
+                            </div>
+                            <div class="relative z-0 group rounded-full">
+                                <my-select title="Списание/пополнение личного счета клиента" v-model:value="query.filters.client_balance_change" :values="client_balance_change"/>
+                            </div>
+                            <button @click="clearFilters"
+                                    class="mt-3 rounded-md px-3 py-2 text-sm font-semibold text-indigo-500 shadow-sm">
+                                Очистить
+                            </button>
+                            <button type="submit"
+                                    class="mt-3 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm">
+                                Применить
+                            </button>
                         </div>
-                        <div class="relative z-0 group rounded-full">
-                            <MultiSelect
-                                title="Клиент"
-                                v-model:value="query.filters.users"
-                                :values="clients || []"
-                                :multiple="true"
-                                label="fullName"
-                            />
-                        </div>
-                        <button @click="clearFilters"
-                                class="mt-3 rounded-md px-3 py-2 text-sm font-semibold text-indigo-500 shadow-sm">
-                            Очистить
-                        </button>
-                        <button type="submit"
-                                class="mt-3 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm">
-                            Применить
-                        </button>
+
                     </div>
+
 
                 </form>
                 <table class="w-full whitespace-nowrap">
@@ -163,9 +182,11 @@ import {BranchService} from "../../services/BranchService";
 import {CarService} from "../../services/CarService";
 import TextInput from "../forms/TextInput.vue";
 import MultiSelect from "../forms/MultiSelect.vue";
+import DateInput from "../forms/DateInput.vue";
+import MySelect from "../forms/MySelect.vue";
 
 export default {
-    components: {TextInput, Alert, Spinner, MultiSelect},
+    components: {MySelect, DateInput, TextInput, Alert, Spinner, MultiSelect},
     data: function () {
         return {
             auth_user:[],
@@ -178,6 +199,14 @@ export default {
             query: {
                 filters: {},
             },
+            types: [
+                {id: 0, name: 'Доход'},
+                {id: 1, name: 'Расход'},
+            ],
+            client_balance_change: [
+                {id: 0, name: 'Нет'},
+                {id: 1, name: 'Да'},
+            ],
 
         }
     },
