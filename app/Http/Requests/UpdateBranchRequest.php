@@ -22,7 +22,7 @@ class UpdateBranchRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id'              => 'required',
+            //'id'              => 'required',
             'name'            => 'required',
             'address'         => 'required',
             'wa_token'        => 'required',

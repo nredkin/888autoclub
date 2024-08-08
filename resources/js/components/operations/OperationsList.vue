@@ -5,12 +5,51 @@
         <div class="bg-white py-4 md:py-7 px-4 md:px-8 xl:px-10">
             <h3 class="text-4xl font-extrabold dark:text-white">Финансовые операции</h3>
             <div class="mt-7 overflow-x-auto">
+                <form @submit="update">
+                    <div class="grid md:grid-cols-5 md:gap-6 mt-4 rounded-full p-4 mb-10 border border-gray-100 rounded-0">
+                        <div class="relative z-0 group rounded-full">
+                            <MultiSelect
+                                title="Филиал"
+                                v-model:value="query.filters.branches"
+                                :values="branches || []"
+                                :multiple="true"
+                            />
+                        </div>
+                        <div class="relative z-0 group rounded-full">
+                            <MultiSelect
+                                title="Автомобиль"
+                                v-model:value="query.filters.cars"
+                                :values="cars || []"
+                                :multiple="true"
+                                label="model"
+                            />
+                        </div>
+                        <div class="relative z-0 group rounded-full">
+                            <MultiSelect
+                                title="Клиент"
+                                v-model:value="query.filters.users"
+                                :values="clients || []"
+                                :multiple="true"
+                                label="fullName"
+                            />
+                        </div>
+                        <button @click="clearFilters"
+                                class="mt-3 rounded-md px-3 py-2 text-sm font-semibold text-indigo-500 shadow-sm">
+                            Очистить
+                        </button>
+                        <button type="submit"
+                                class="mt-3 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm">
+                            Применить
+                        </button>
+                    </div>
+
+                </form>
                 <table class="w-full whitespace-nowrap">
                     <thead class="bg-gray-100">
                     <tr tabindex="0" class="focus:outline-none h-16 border border-gray-100 rounded">
                         <td class="">
                             <div class="flex items-center pl-5">
-                                <p class="text-base font-medium leading-none text-gray-700 mr-2">ID</p>
+                                <p class="text-base font-medium leading-none text-gray-700 mr-2">Дата операции</p>
                             </div>
                         </td>
                         <td class="">
@@ -28,6 +67,21 @@
                                 <p class="text-base font-medium leading-none text-gray-700 mr-2">Клиент</p>
                             </div>
                         </td>
+                        <td class="">
+                            <div class="flex items-center pl-5">
+                                <p class="text-base font-medium leading-none text-gray-700 mr-2">Тип операции</p>
+                            </div>
+                        </td>
+                        <td class="">
+                            <div class="flex items-center pl-5">
+                                <p class="text-base font-medium leading-none text-gray-700 mr-2">Сумма</p>
+                            </div>
+                        </td>
+                        <td class="">
+                            <div class="flex items-center pl-5">
+                                <p class="text-base font-medium leading-none text-gray-700 mr-2">Списание/пополнение<br> личного счета клиента</p>
+                            </div>
+                        </td>
                         <td class="pl-4">
                             <p class="text-sm leading-none text-gray-600 ml-2">Действия</p>
                         </td>
@@ -38,22 +92,37 @@
                         class="focus:outline-none h-16 border border-gray-100 rounded">
                         <td class="">
                             <div class="flex items-center pl-5">
-                                <p class="text-base font-medium leading-none text-gray-700 mr-2">{{ operation.id }}</p>
+                                <p class="text-base font-medium leading-none text-gray-700 mr-2">{{ operation.date }}</p>
                             </div>
                         </td>
                         <td class="">
                             <div class="flex items-center pl-5">
-                                <p class="text-base font-medium leading-none text-gray-700 mr-2">{{ operation.branch_id }}</p>
+                                <p class="text-base font-medium leading-none text-gray-700 mr-2">{{ getBranchName(operation.branch_id) }}</p>
                             </div>
                         </td>
                         <td class="">
                             <div class="flex items-center pl-5">
-<!--                                <p class="text-base font-medium leading-none text-gray-700 mr-2">{{ operation.car.model }}</p>-->
+                                <p class="text-base font-medium leading-none text-gray-700 mr-2">{{ getCarModel(operation.car_id) }}</p>
                             </div>
                         </td>
                         <td class="">
                             <div class="flex items-center pl-5">
                                 <p class="text-base font-medium leading-none text-gray-700 mr-2">{{ operation.user.userable.fullName }}</p>
+                            </div>
+                        </td>
+                        <td class="">
+                            <div class="flex items-center pl-5">
+                                <p class="text-base font-medium leading-none text-gray-700 mr-2">{{ showOperationType(operation.type) }}</p>
+                            </div>
+                        </td>
+                        <td class="">
+                            <div class="flex items-center pl-5">
+                                <p class="text-base font-medium leading-none text-gray-700 mr-2">{{ operation.sum }} р.</p>
+                            </div>
+                        </td>
+                        <td class="">
+                            <div class="flex items-center pl-5">
+                                <p class="text-base font-medium leading-none text-gray-700 mr-2">{{ operation.client_balance_change == 1 ? 'Да' : 'Нет' }}</p>
                             </div>
                         </td>
                         <td class="pl-4">
@@ -90,21 +159,35 @@ import {OperationService} from "../../services/OperationService";
 import {UserService} from "../../services/UserService";
 import Spinner from "../forms/Spinner.vue";
 import Alert from "../forms/Alert.vue";
+import {BranchService} from "../../services/BranchService";
+import {CarService} from "../../services/CarService";
+import TextInput from "../forms/TextInput.vue";
+import MultiSelect from "../forms/MultiSelect.vue";
 
 export default {
-    components: {Alert, Spinner},
+    components: {TextInput, Alert, Spinner, MultiSelect},
     data: function () {
         return {
             auth_user:[],
             operations: [],
             loading: false,
-            errorMessage: false
+            errorMessage: false,
+            branches: [],
+            cars: [],
+            clients: [],
+            query: {
+                filters: {},
+            },
+
         }
     },
     name: "OperationsList",
     created: function () {
         this.update()
         this.getAuthUser()
+        BranchService.getBranches().then(response => this.branches = response.data.branches)
+        CarService.getCars().then(response => this.cars = response.data.cars)
+        UserService.getClientsList().then(response => this.clients = response.data.clients)
     },
     methods: {
         getAuthUser: function () {
@@ -115,7 +198,7 @@ export default {
 
         update: function () {
             this.loading = true
-            OperationService.getOperations()
+            OperationService.getOperations({'query': this.query})
                 .then(response => this.operations = response.data.operations)
                 .catch(error => this.errors = error.data.message)
                 .finally(() => this.loading = false)
@@ -127,7 +210,30 @@ export default {
                     .then(() => this.update())
                     .catch(error => this.errors = error.response.data.message)
             }
-        }
+        },
+        getCarModel(carId) {
+            const car = this.cars.find(car => car.id === carId);
+            return car ? car.model : '';
+        },
+        getBranchName(branchId) {
+            const branch = this.branches.find(branch => branch.id === branchId);
+            return branch ? branch.name : '';
+        },
+        showOperationType(type) {
+            let typeName = ""
+            if (type == 0) {
+                typeName = "Доход"
+            }
+            if (type == 1) {
+                typeName = "Расход"
+            }
+            return typeName;
+        },
+        clearFilters() {
+            this.query.filters = {};
+            this.update();
+        },
+
     }
 }
 </script>

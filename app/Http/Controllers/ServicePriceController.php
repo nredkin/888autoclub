@@ -6,7 +6,6 @@ use App\Http\Resources\ServicePriceResource;
 use App\Http\Resources\ServiceResource;
 use App\Models\Service;
 use App\Models\ServicePrice;
-use http\Client\Curl\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 

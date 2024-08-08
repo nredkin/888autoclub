@@ -15,11 +15,6 @@
                 <table class="w-full whitespace-nowrap">
                     <thead class="bg-gray-100">
                     <tr tabindex="0" class="focus:outline-none h-16 border border-gray-100 rounded">
-<!--                        <td class="">-->
-<!--                            <div class="flex items-center pl-5">-->
-<!--                                <p class="text-base font-medium leading-none text-gray-700 mr-2">ФИО пользователя</p>-->
-<!--                            </div>-->
-<!--                        </td>-->
                         <td class="">
                             <div class="flex items-center pl-5">
                                 <p class="text-base font-medium leading-none text-gray-700 mr-2">ФИО</p>

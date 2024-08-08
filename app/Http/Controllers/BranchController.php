@@ -30,7 +30,7 @@ class BranchController extends Controller
 
         $branch->save();
 
-        return new JsonResponse(['branch' => BranchResource::make($branch)]);
+        return new JsonResponse(['branch' => BranchResource::make($branch)], 201);
     }
 
     public function show(int $id): JsonResponse
@@ -66,12 +66,12 @@ class BranchController extends Controller
         $branch = $this->branches->find($id);
 
         if (!$branch) {
-            return $this->error('Филиал не найден');
+            return response()->json(['error' => 'Филиал не найден'], 404);
         }
 
         $branch->delete();
 
-        return $this->success();
+        return response()->json(null, 204);
     }
 
     public function dict(): JsonResponse

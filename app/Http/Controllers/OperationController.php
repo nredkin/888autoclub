@@ -9,6 +9,7 @@ use App\Models\Client;
 use App\Models\Deal;
 use App\Models\Operation;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
 class OperationController extends Controller
@@ -17,9 +18,36 @@ class OperationController extends Controller
     {
 
     }
-    public function list()
+    public function list(Request $request)
     {
-        $operations = Operation::with('user.userable', 'car')->get();
+        $query = $request->get('query');
+
+        // Start building the query with relationships
+        $operationsQuery = Operation::with('user.userable', 'car');
+
+        // Apply filters if they exist
+        if ($query && isset($query['filters'])) {
+            $filters = $query['filters'];
+
+            // Filter by branch_id if 'branches' filter is present
+            if (isset($filters['branches'])) {
+                $operationsQuery->whereIn('branch_id', $filters['branches']);
+            }
+
+            // Additional filters can be added here
+            if (isset($filters['cars'])) {
+                $operationsQuery->whereIn('car_id', $filters['cars']);
+            }
+
+            if (isset($filters['users'])) {
+                $operationsQuery->whereIn('user_id', $filters['users']);
+            }
+        }
+
+        // Execute the query
+        $operations = $operationsQuery->get();
+
+        // Return the response with the filtered operations
         return new JsonResponse(['operations' => OperationResource::collection($operations)]);
     }
 

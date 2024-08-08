@@ -3,9 +3,9 @@ import axios from "axios";
 export class OperationService {
     static serverUrl = import.meta.env.VITE_BASE_URL;
 
-    static getOperations(){
+    static getOperations(query){
         let url = `${this.serverUrl}/operations`;
-        return axios.get(url);
+        return axios.get(url, { params: query });
     }
 
     static getOperationsByModelId(modelType, modelId) {

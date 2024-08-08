@@ -5,7 +5,7 @@
             :options="values"
             v-model="selectedValue"
             :multiple="multiple"
-            label="name"
+            :label="label"
             track-by="id"
             :close-on-select="!multiple"
             placeholder="Поиск">
@@ -32,6 +32,10 @@ export default {
         multiple: {
             type: Boolean,
             default: true,
+        },
+        label: {
+            type: String,
+            default: "name",
         },
     },
     computed: {
