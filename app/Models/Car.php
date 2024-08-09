@@ -24,4 +24,9 @@ class Car extends Model
     {
         return $this->hasMany(Operation::class);
     }
+
+    public function actFile()
+    {
+        return $this->belongsTo(File::class, 'act_file_id');
+    }
 }

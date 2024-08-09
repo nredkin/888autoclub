@@ -14,11 +14,9 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use PhpOffice\PhpWord\Element\Table;
-use PhpOffice\PhpWord\SimpleType\TblWidth;
-use PhpOffice\PhpWord\TemplateProcessor;
 use Illuminate\Support\Facades\File as FileFacade;
+use Illuminate\Support\Facades\Hash;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 class UserController extends Controller
 {

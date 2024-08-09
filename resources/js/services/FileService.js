@@ -7,6 +7,12 @@ export class FileService {
         let url = `${this.serverUrl}/files/${modelType}/${modelId}`;
         return axios.get(url);
     }
+
+    static getFileById(id) {
+        let url = `${this.serverUrl}/files/${id}`;
+        return axios.get(url);
+    }
+
     static store(modelType, modelId, file) {
         let url = `${this.serverUrl}/files/${modelType}/${modelId}`;
         return axios.post(url, file);

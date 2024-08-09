@@ -1,7 +1,7 @@
 <template>
-  <div class="w-1/2">
+  <div class="w-2/3">
       <div>
-          <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white mt-10">Файлы</h3>
+          <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white mt-10">{{getTitle()}}</h3>
           <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Загрузить
               файл</label>
           <input @change="uploadFile"
@@ -15,7 +15,7 @@
                   <div class="p-3 overflow-hidden">
                       <div class="mb-1 font-normal text-gray-700 dark:text-gray-400"> {{ file.filename }}
                       </div>
-                      <div class="mb-1 font-normal text-gray-700 dark:text-gray-400">Размер: {{ file.filesize }} Мб
+                      <div class="mb-1 font-normal text-gray-700 dark:text-gray-400">Размер: {{ bytesToMegabytes(file.filesize) }} Мб
                       </div>
                       <div class="mb-1 font-normal text-gray-700 dark:text-gray-400">Сохранен: {{
                               file.created_at
@@ -59,12 +59,21 @@ export default {
     props: {
         modelId: null,
         modelType: '',
+        isAct: {
+            type: Boolean,
+            default: false
+        },
+        actId: {
+            type: Number,
+            default: null
+        },
     },
     data: function () {
         return {
             isHidden: true,
             errors: null,
             files: [],
+            actIdNumber: null,
         }
     },
     created: async function () {
@@ -76,6 +85,12 @@ export default {
     beforeDestroy() {
         EventBus.off('refresh-files', this.loadFiles);
     },
+    watch: {
+        actId() {
+            this.actIdNumber = this.actId;
+            this.loadFiles();
+        },
+    },
     methods: {
         showModal: function () {
             this.isHidden = false
@@ -85,20 +100,35 @@ export default {
         },
 
         async loadFiles() {
-            try {
-                const response = await FileService.getFiles(this.modelType, this.modelId);
-                this.files = response.data.data;
-            } catch (error) {
-                this.errors = error.response ? error.response.data.errors : [error.message];
+            if (this.isAct === true) {
+                try {
+                    if (this.actIdNumber) {
+                        const response = await FileService.getFileById(this.actIdNumber);
+                        this.files.push(response.data.file);
+                    }
+                } catch (error) {
+                    this.errors = error.response ? error.response.data.errors : [error.message];
+                }
+            } else {
+                try {
+                    const response = await FileService.getFiles(this.modelType, this.modelId);
+                    this.files = response.data.data;
+                } catch (error) {
+                    this.errors = error.response ? error.response.data.errors : [error.message];
+                }
             }
         },
         async uploadFile(event) {
             const file = event.target.files[0];
             let formData = new FormData();
             formData.append('file', file);
-
+            formData.append('act', this.isAct);
             try {
-                await FileService.store(this.modelType, this.modelId, formData).then(response => {this.loadFiles()});
+                await FileService.store(this.modelType, this.modelId, formData).then(response => {
+                    this.$emit('file-uploaded', this.modelId);
+                }).finally(response => {
+                    this.loadFiles()
+                });
                 this.errors = null;
             } catch (error) {
                 this.errors = error.response.data.errors;
@@ -122,12 +152,23 @@ export default {
             try {
                 await FileService.delete(id);
                 this.files = this.files.filter(file => file.id !== id);
+                this.actIdNumber = null;
             } catch (error) {
                 this.errors = error.response ? error.response.data.errors : [error.message];
             }
         },
         getFileUrl(path) {
             return `${import.meta.env.VITE_BASE_URL}/storage/${path}`;
+        },
+        getTitle() {
+            let title = "Файлы";
+            if (this.isAct === true) {
+                title = "Акт";
+            }
+            return title;
+        },
+        bytesToMegabytes(bytes) {
+            return (bytes / (1024 * 1024)).toFixed(2);
         }
     }
 }

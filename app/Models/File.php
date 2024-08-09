@@ -10,10 +10,6 @@ class File extends Model
     use HasFactory;
     protected $guarded = [];
 
-//    public function getPathAttribute($value)
-//    {
-//        return url('storage/' . $value);
-//    }
     public function fileable()
     {
         return $this->morphTo();

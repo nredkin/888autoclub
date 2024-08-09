@@ -28,6 +28,8 @@ return new class extends Migration
             $table->date('pts_date');
             $table->string('reg_sign');
             $table->text('description');
+            $table->unsignedBigInteger('act_file_id')->nullable();
+            $table->foreign('act_file_id')->references('id')->on('files')->onDelete('set null');
             $table->timestamps();
         });
     }

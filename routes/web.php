@@ -147,6 +147,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'files'], function () {
         Route::get('/download/{id}', [FileController::class, 'download'])->name('files.download');
         Route::get('/{modelType}/{modelId}', [FileController::class, 'index'])->name('files.index');
+        Route::get('/{id}', [FileController::class, 'getFileById'])->name('files.getFileById');
         Route::post('/{modelType}/{modelId}', [FileController::class, 'upload'])->name('files.upload');
         Route::delete('/{id}', [FileController::class, 'delete'])->name('files.delete');
     });

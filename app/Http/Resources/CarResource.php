@@ -31,9 +31,10 @@ class CarResource extends JsonResource
             'registration_series' => $this->resource->registration_series,
             'registration_number' => $this->resource->registration_number,
             'pts_number'     => $this->resource->pts_number,
-            'pts_date'       => $this->resource->pts_date? Carbon::parse($this->resource->pts_date)->format('Y-m-d') : '',
+            'pts_date'       => $this->resource->pts_date ? Carbon::parse($this->resource->pts_date)->format('Y-m-d') : '',
             'reg_sign'       => $this->resource->reg_sign,
             'description'    => $this->resource->description,
+            'act_file_id'    => $this->resource->act_file_id,
         ];
     }
 }

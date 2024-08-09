@@ -9,6 +9,7 @@ use App\Models\File;
 use App\Models\Service;
 use App\Models\User;
 use App\Services\FileService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -26,7 +27,10 @@ class FileController extends Controller
         ]);
 
         $uploadedFile = $request->file('file');
-        $file = $this->fileService->upload($uploadedFile, $modelType, $modelId);
+
+        $isAct = filter_var($request->input('act', false), FILTER_VALIDATE_BOOLEAN);
+
+        $file = $this->fileService->upload($uploadedFile, $modelType, $modelId, $isAct);
 
         return response()->json(['message' => 'Файл успешно загружен', 'file' => $file]);
     }
@@ -34,8 +38,19 @@ class FileController extends Controller
     public function index($modelType, $modelId)
     {
         $model = $this->getModelInstance($modelType, $modelId);
-        $files = $model->files;
+        $files = $model->files()->where('is_special', 0)->get();
         return FileResource::collection($files);
+    }
+
+    public function getFileById($id)
+    {
+        $file = $this->file->findOrFail($id);
+
+        if (!$file) {
+            return $this->error('Файл не найден');
+        }
+
+        return new JsonResponse(['file' => FileResource::make($file)]);
     }
 
     public function download($id)

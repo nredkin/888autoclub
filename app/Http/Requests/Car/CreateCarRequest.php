@@ -37,6 +37,7 @@ class CreateCarRequest extends FormRequest
             'pts_date'          => 'required|date',
             'reg_sign'         => 'required|string',
             'description'       => 'nullable|string',
+            'act_file_id'       => 'nullable|integer',
         ];
     }
 
@@ -108,5 +109,10 @@ class CreateCarRequest extends FormRequest
     public function getDescription(): ?string
     {
         return $this->input('description');
+    }
+
+    public function getActFileId(): int
+    {
+        return $this->input('act_file_id');
     }
 }

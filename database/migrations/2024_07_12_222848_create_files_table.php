@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('path');
             $table->unsignedBigInteger('filesize');
             $table->morphs('fileable');
+            $table->boolean('is_special')->default(0);
             $table->timestamps();
         });
     }

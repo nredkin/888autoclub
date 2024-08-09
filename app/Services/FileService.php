@@ -3,15 +3,14 @@ namespace App\Services;
 
 use App\Models\Car;
 use App\Models\Deal;
+use App\Models\File;
 use App\Models\Service;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
-use App\Models\File;
 
 class FileService
 {
-    public function upload(UploadedFile $uploadedFile, $modelType, $modelId)
+    public function upload(UploadedFile $uploadedFile, $modelType, $modelId, $isAct = false)
     {
         $path = $uploadedFile->store('uploads', 'public');
 
@@ -22,7 +21,21 @@ class FileService
         ]);
 
         $model = $this->getModelInstance($modelType, $modelId);
-        $model->files()->save($file);
+
+        if ($isAct && $model instanceof Car) {
+            $file->fileable_type = get_class($model);
+            $file->fileable_id = $model->id;
+            $file->is_special = true;
+            $file->save();
+            // Remove existing act file if present
+            if ($model->actFile) {
+                $model->actFile->delete();
+            }
+            $model->actFile()->associate($file);
+            $model->save();
+        } else {
+            $model->files()->save($file);
+        }
 
         return $file;
     }

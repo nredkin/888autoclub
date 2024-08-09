@@ -36,7 +36,8 @@ class UpdateCarRequest extends FormRequest
             'pts_number'        => 'string',
             'pts_date'          => 'date', // Optional date validation if required
             'reg_sign'         => 'string',
-            'description'       => 'nullable|string', // Allow optional description
+            'description'       => 'nullable|string',
+            'act_file_id'       => 'nullable|integer',
         ];
     }
 
@@ -113,5 +114,10 @@ class UpdateCarRequest extends FormRequest
     public function getDescription(): ?string
     {
         return $this->input('description');
+    }
+
+    public function getActFileId(): int
+    {
+        return $this->input('act_file_id');
     }
 }

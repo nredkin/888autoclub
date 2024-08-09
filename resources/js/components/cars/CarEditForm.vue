@@ -65,9 +65,16 @@
                     <Operations :carId="id"/>
                 </div>
 
-                <div class="w-full mb-6 group">
-                    <Files :modelId="id" modelType="car"/>
+                <div class="grid md:grid-cols-2 md:gap-6">
+                    <div class="w-full mb-6 group">
+                        <Files :modelId="id" modelType="car"/>
+                    </div>
+                    <div class="w-full mb-6 group">
+                        <Files :modelId="id" modelType="car" isAct :actId="car.act_file_id" @file-uploaded="onFileUploaded"/>
+                    </div>
                 </div>
+
+
             </form>
         </div>
     </div>
@@ -110,6 +117,7 @@ export default {
                 'pts_date': '',
                 'reg_sign' : '',
                 'description': '',
+                'act_file_id': '',
             },
             branches: [],
             colors: [],
@@ -142,7 +150,10 @@ export default {
                 .catch(error => {
                     this.errors = error.response.data.message
                 })
-        }
+        },
+        onFileUploaded(modelId) {
+            this.getData(modelId);
+        },
     }
 }
 </script>
