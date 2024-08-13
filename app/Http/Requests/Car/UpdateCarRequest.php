@@ -28,7 +28,7 @@ class UpdateCarRequest extends FormRequest
             'year'              => 'required|integer',
             'engine_model'      => 'required|string',
             'engine_power'     => 'required|string',
-            'color_id'          => 'required|integer',
+            'color'             => 'required|string',
             'cost'              => 'required|numeric',
             'branch_id'         => 'required|exists:branches,id', // Ensure branch exists
             'registration_series' => 'required|string',
@@ -71,9 +71,9 @@ class UpdateCarRequest extends FormRequest
         return $this->input('engine_power');
     }
 
-    public function getColorId(): int
+    public function getColor(): string
     {
-        return (int) $this->input('color_id');
+        return (int) $this->input('color');
     }
 
     public function getCost(): float

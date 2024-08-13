@@ -18,7 +18,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             BranchSeeder::class,
             UserSeeder::class,
-            ColorSeeder::class,
             ExpenseItemSeeder::class,
             ClubCardLevelSeeder::class,
             CarSeeder::class,

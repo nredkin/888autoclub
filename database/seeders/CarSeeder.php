@@ -19,7 +19,7 @@ class CarSeeder extends Seeder
                 'year' => $faker->numberBetween(2010, 2023),
                 'engine_model' => $faker->word(),
                 'engine_power' => $faker->numberBetween(100, 500) . ' hp',
-                'color_id' => rand(1, 10),
+                'color' => $faker->word(),
                 'cost' => $faker->randomFloat(2, 10000, 100000),
                 'branch_id' => 1,
                 'registration_series' => $faker->word(),

@@ -111,7 +111,6 @@ import {UserService} from "../../services/UserService";
 import BranchCreateForm from "../branches/BranchCreateForm.vue";
 import Checkbox from "../forms/Checkbox.vue";
 import DateInput from "../forms/DateInput.vue";
-import {ColorService} from "../../services/ColorService";
 import {ExpenseItemService} from "../../services/ExpenseItemService";
 
 

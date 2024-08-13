@@ -20,9 +20,6 @@ import CarsList from "./components/cars/CarsList.vue";
 import CarCreateForm from "./components/cars/CarCreateForm.vue";
 import CarEditForm from "./components/cars/CarEditForm.vue";
 import ServicesList from "./components/services/ServicesList.vue";
-import ColorsList from "./components/colors/ColorsList.vue";
-import ColorCreateForm from "./components/colors/ColorCreateForm.vue";
-import ColorEditForm from "./components/colors/ColorEditForm.vue";
 import ServiceCreateForm from "./components/services/ServiceCreateForm.vue";
 import ServiceEditForm from "./components/services/ServiceEditForm.vue";
 import DealsList from "./components/deals/DealsList.vue";
@@ -125,22 +122,6 @@ const router = createRouter({
             name: 'editService',
             path: '/services/:id',
             component: ServiceEditForm
-        },
-        //Цвета
-        {
-            name: 'listColors',
-            path: '/colors',
-            component: ColorsList
-        },
-        {
-            name: 'createColor',
-            path: '/colors/create',
-            component: ColorCreateForm
-        },
-        {
-            name: 'editColor',
-            path: '/colors/:id',
-            component: ColorEditForm
         },
         //Сделки
         {

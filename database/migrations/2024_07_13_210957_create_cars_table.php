@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('year');
             $table->string('engine_model');
             $table->string('engine_power');
-            $table->integer('color_id');
+            $table->string('color');
             $table->decimal('cost', 15);
             $table->foreignIdFor(Branch::class);
             $table->string('registration_series');

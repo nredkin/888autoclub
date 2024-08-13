@@ -92,15 +92,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/{id}', [CarController::class, 'delete']);
     });
 
-    Route::group(['prefix' => 'colors'], function () {
-        Route::get('/', [ColorController::class, 'list']);
-        Route::get('/dict', [ColorController::class, 'dict']);
-        Route::post('/', [ColorController::class, 'store']);
-        Route::get('/{id}', [ColorController::class, 'show']);
-        Route::put('/{id}', [ColorController::class, 'update']);
-        Route::delete('/{id}', [ColorController::class, 'delete']);
-    });
-
     Route::group(['prefix' => 'services'], function () {
         Route::get('/', [ServiceController::class, 'list']);
         Route::get('/dict', [ServiceController::class, 'dict']);

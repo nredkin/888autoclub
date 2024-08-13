@@ -295,6 +295,7 @@ class UserController extends Controller
             'without_driver' => 'contract_without_driver.docx',
             'with_driver' => 'contract_with_driver.docx',
             'card' => 'contract_card.docx',
+            'certificate' => 'contract_certificate.docx',
             default => throw new \Exception("Invalid contract type"),
         };
 

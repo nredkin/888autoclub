@@ -41,7 +41,7 @@ class CarController extends Controller
         $car->year = $request->getYear();
         $car->engine_model = $request->getEngineModel();
         $car->engine_power = $request->getEnginePower();
-        $car->color_id = $request->getColorId();
+        $car->color = $request->getColor();
         $car->cost = $request->getCost();
         $car->branch_id = $request->getBranchId();
         $car->registration_series = $request->getRegistrationSeries();
@@ -69,7 +69,7 @@ class CarController extends Controller
         $car->year = $request->getYear();
         $car->engine_model = $request->getEngineModel();
         $car->engine_power = $request->getEnginePower();
-        $car->color_id = $request->getColorId();
+        $car->color = $request->getColor();
         $car->cost = $request->getCost();
         $car->branch_id = $request->getBranchId();
         $car->registration_series = $request->getRegistrationSeries();

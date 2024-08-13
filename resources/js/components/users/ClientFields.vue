@@ -81,6 +81,9 @@
             <div class="relative z-0 w-full mb-6 group">
                 <a href="#" @click="downloadContract(contractTypes.withDriver, $event)" class="text-blue-600 font-medium">Создать договор аренды с экипажем</a>
             </div>
+            <div class="relative z-0 w-full mb-6 group">
+                <a href="#" @click="downloadContract(contractTypes.certificate, $event)" class="text-blue-600 font-medium">Скачать договор на подарочный сертификат</a>
+            </div>
             <div class="w-full mb-6 group">
                 <Files :modelId="userId" modelType="user"/>
             </div>
@@ -120,6 +123,7 @@ export default {
                 withoutDriver: 'without_driver',
                 withDriver: 'with_driver',
                 card: 'card',
+                certificate: 'certificate',
             },
         }
     },

@@ -59,8 +59,6 @@ class FileController extends Controller
         $filePath = storage_path('app/public/' . $file->path);
 
         if (!file_exists($filePath)) {
-            logger($file->path);
-            logger('File not found: ' . $filePath);
             abort(404, 'File not found');
         }
 

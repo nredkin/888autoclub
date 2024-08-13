@@ -21,7 +21,7 @@
                     <TextInput title="Мощность двигателя" v-model:value="car.engine_power" type="text"/>
                 </div>
                 <div class="relative z-0 w-full mb-6 group">
-                    <my-select title="Цвет" v-model:value="car.color_id" :values="colors"/>
+                    <TextInput title="Цвет" v-model:value="car.color" type="text"/>
                 </div>
                 <div class="relative z-0 w-full mb-6 group">
                     <TextInput title="Стоимость" v-model:value="car.cost" type="number"/>
@@ -71,7 +71,6 @@ import {CarService} from "../../services/CarService";
 import DateInput from "../forms/DateInput.vue";
 import MySelect from "../forms/MySelect.vue";
 import {BranchService} from "../../services/BranchService";
-import {ColorService} from "../../services/ColorService";
 import Textarea from "../forms/Textarea.vue";
 
 export default {
@@ -86,7 +85,7 @@ export default {
                 'year':  '',
                 'engine_model':  '',
                 'engine_power':  '',
-                'color_id':  '',
+                'color':  '',
                 'cost' :    '',
                 'branch_id' :  '',
                 'registration_series': '',
@@ -97,14 +96,12 @@ export default {
                 'description': '',
             },
             branches: [],
-            colors: [],
             errors: null,
             message: null
         }
     },
     created: async function () {
         BranchService.getBranches().then(response => this.branches = response.data.branches)
-        ColorService.getColors().then(response => this.colors = response.data.colors)
 
     },
     methods: {

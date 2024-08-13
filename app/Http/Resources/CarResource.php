@@ -25,7 +25,7 @@ class CarResource extends JsonResource
             'year'           => $this->resource->year,
             'engine_model'   => $this->resource->engine_model,
             'engine_power'   => $this->resource->engine_power,
-            'color_id'       => $this->resource->color_id,
+            'color'          => $this->resource->color,
             'cost'           => $this->resource->cost,
             'branch_id'      => $this->resource->branch_id,
             'registration_series' => $this->resource->registration_series,

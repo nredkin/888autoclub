@@ -56,7 +56,6 @@
 </template>
 
 <script>
-import {ColorService} from "../../services/ColorService";
 import {UserService} from "../../services/UserService";
 import Spinner from "../forms/Spinner.vue";
 import Alert from "../forms/Alert.vue";
