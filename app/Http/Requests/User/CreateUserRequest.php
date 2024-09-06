@@ -177,10 +177,42 @@ class CreateUserRequest extends FormRequest
         return isset($userable['balance']) ? $userable['balance'] : 0;
     }
 
-    public function getBonusPoints()
+    public function getType()
     {
         $userable = $this->input('userable');
-        return isset($userable['bonus_points']) ? $userable['bonus_points'] : 0;
+        return isset($userable['type']) ? $userable['type'] : 0;
     }
+
+    public function getRegNumber(): string
+    {
+        $userable = $this->input('userable');
+        return isset($userable['regNumber']) ? $userable['regNumber'] : '';
+    }
+
+    public function getJurAddress(): string
+    {
+        $userable = $this->input('userable');
+        return isset($userable['jurAddress']) ? $userable['jurAddress'] : '';
+    }
+
+    public function getFactAddress(): string
+    {
+        $userable = $this->input('userable');
+        return isset($userable['factAddress']) ? $userable['factAddress'] : '';
+    }
+
+    public function getDirector(): string
+    {
+        $userable = $this->input('userable');
+        return isset($userable['director']) ? $userable['director'] : '';
+    }
+
+    public function getBankDetails(): string
+    {
+        $userable = $this->input('userable');
+        return isset($userable['bankDetails']) ? $userable['bankDetails'] : '';
+    }
+
+
 
 }

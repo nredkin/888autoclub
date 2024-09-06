@@ -43,6 +43,12 @@ class ClientResource extends JsonResource
                 $this->resource->first_name,
                 $this->resource->middle_name
             ),
+            'type'                 => $this->resource->type,
+            'regNumber'           => $this->resource->reg_number,
+            'jurAddress'          => $this->resource->jur_address,
+            'factAddress'         => $this->resource->fact_address,
+            'director'             => $this->resource->director,
+            'bankDetails'         => $this->resource->bank_details,
 
         ];
     }

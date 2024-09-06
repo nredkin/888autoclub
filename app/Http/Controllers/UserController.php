@@ -110,7 +110,12 @@ class UserController extends Controller
                 'complaints' => $request->getComplaints(),
                 'last_check_fssp' => $request->getLastCheckFssp(),
                 'last_check_enforcement' => $request->getLastCheckEnforcement(),
-                 // Add any other client fields here
+                'type' => $request->getType(),
+                'reg_number' => $request->getRegNumber(),
+                'jur_address' => $request->getJurAddress(),
+                'fact_address' => $request->getFactAddress(),
+                'director' => $request->getDirector(),
+                'bank_details' => $request->getBankDetails(),
               ]);
 
                 $userable->save();
@@ -196,7 +201,12 @@ class UserController extends Controller
                     'complaints' => $request->getComplaints(),
                     'last_check_fssp' => $request->getLastCheckFssp(),
                     'last_check_enforcement' => $request->getLastCheckEnforcement(),
-                    // Add any other client fields here
+                    'type' => $request->getType(),
+                    'reg_number' => $request->getRegNumber(),
+                    'jur_address' => $request->getJurAddress(),
+                    'fact_address' => $request->getFactAddress(),
+                    'director' => $request->getDirector(),
+                    'bank_details' => $request->getBankDetails(),
                 ]);
 
                 // Update categories if provided

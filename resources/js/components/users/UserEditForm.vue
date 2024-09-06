@@ -68,7 +68,8 @@ export default {
                     'firstName': '',
                     'middleName': '',
                     'branchId': 0,
-                    'categoryIds': []
+                    'categoryIds': [],
+                    'type': 0,
                     // Add other fields if needed
                 }
             },

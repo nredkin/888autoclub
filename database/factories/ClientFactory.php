@@ -29,6 +29,12 @@ class ClientFactory extends Factory
             'last_check_fssp' => $this->faker->date(),
             'last_check_enforcement' => $this->faker->date(),
             'comment' => $this->faker->sentence(),
+            'type' => $this->faker->regexify('[0-1]{1}'),
+            'reg_number' => $this->faker->sentence(),
+            'jur_address' => $this->faker->address(),
+            'fact_address' => $this->faker->address(),
+            'director' => $this->faker->lastName(),
+            'bank_details' => $this->faker->paragraph(),
         ];
     }
 }

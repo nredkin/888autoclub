@@ -30,6 +30,12 @@ return new class extends Migration
             $table->date('last_check_fssp')->nullable();
             $table->date('last_check_enforcement')->nullable();
             $table->text('comment')->nullable();
+            $table->integer('type')->default(0);
+            $table->string('reg_number')->nullable();
+            $table->string('jur_address')->nullable();
+            $table->string('fact_address')->nullable();
+            $table->string('director')->nullable();
+            $table->text('bank_details')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

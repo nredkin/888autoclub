@@ -63,7 +63,42 @@
             <div class="relative z-0 w-full mb-6 group">
                 <Textarea title="Комментарий" name="comment" v-model:value="userable.comment"/>
             </div>
+
+            <div class="relative z-0 w-full mb-6 group">
+                <my-select v-model:value="userable.type" title="Тип" :values="types"/>
+            </div>
+
+
         </div>
+
+        <div v-if="userable.type == 1">
+            <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Юридическое лицо</h3>
+
+            <div class="grid md:grid-cols-3 md:gap-6">
+                <div class="relative z-0 w-full mb-6 group">
+                    <TextInput title="ОГРН" name="reg_number" v-model:value="userable.regNumber"
+                               type="text"/>
+                </div>
+                <div class="relative z-0 w-full mb-6 group">
+                    <TextInput title="Юридический адрес" name="jur_address" v-model:value="userable.jurAddress"
+                               type="text"/>
+                </div>
+                <div class="relative z-0 w-full mb-6 group">
+                    <TextInput title="Фактический адрес" name="fact_address" v-model:value="userable.factAddress"
+                               type="text"/>
+                </div>
+                <div class="relative z-0 w-full mb-6 group">
+                    <TextInput title="Директор" name="director" v-model:value="userable.director"
+                               type="text"/>
+                </div>
+                <div class="relative z-0 w-full mb-6 group">
+                    <Textarea title="Данные банка" name="bank_details" v-model:value="userable.bankDetails"/>
+                </div>
+            </div>
+
+        </div>
+
+
 
 <!--        <div class="grid md:grid-cols-2 md:gap-6">-->
             <div class="w-full mb-6 group">
@@ -108,9 +143,10 @@ import Files from "../common/Files.vue"
 import fileDownload from "js-file-download";
 import {UserService} from "../../services/UserService";
 import { EventBus } from '../../helpers/eventBus';
+import MySelect from "../forms/MySelect.vue";
 
 export default {
-    components: {ClubCards, Balance, Files, MultiSelect, TextInput, DateInput, Textarea},
+    components: {MySelect, ClubCards, Balance, Files, MultiSelect, TextInput, DateInput, Textarea},
     name: 'ClientFields',
     props: {
         userable: Object,
@@ -125,6 +161,10 @@ export default {
                 card: 'card',
                 certificate: 'certificate',
             },
+            types: [
+                {id:0, name:'Физ.лицо'},
+                {id:1, name:'Юр.лицо'},
+            ],
         }
     },
     created: async function () {
