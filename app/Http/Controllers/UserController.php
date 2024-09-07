@@ -92,6 +92,11 @@ class UserController extends Controller
                 $userable->save();
 
             } elseif ($request->getRoleId() == User::ROLE_CLIENT) {
+
+                $newContractNumber = (int)Client::orderBy('contract_number', 'desc')
+                    ->value('contract_number') + 1 ?? Client::CONTRACT_START_NUMBER;
+
+
                 $userable = new Client([
                 'first_name' => $request->getFirstName(),
                 'middle_name' => $request->getMiddleName(),
@@ -116,6 +121,8 @@ class UserController extends Controller
                 'fact_address' => $request->getFactAddress(),
                 'director' => $request->getDirector(),
                 'bank_details' => $request->getBankDetails(),
+//                'contract_number' => $request->getContractNumber(),
+                 'contract_number' => $newContractNumber,
               ]);
 
                 $userable->save();
@@ -207,6 +214,7 @@ class UserController extends Controller
                     'fact_address' => $request->getFactAddress(),
                     'director' => $request->getDirector(),
                     'bank_details' => $request->getBankDetails(),
+                    'contract_number' => $request->getContractNumber(),
                 ]);
 
                 // Update categories if provided
@@ -312,7 +320,7 @@ class UserController extends Controller
         if ($this->getUser()->isAdmin()) {
             $template = new TemplateProcessor(storage_path('templates/'.$contractTemplateName ));
 
-            $contractNumber = (int)Contract::latest()->value('contract_number') + 1;
+            $contractNumber = (int)$user->userable->value('contract_number');
 
             $template->setValue('contractNumber', $contractNumber);
             $template->setValue('contractDate', Carbon::now()->format('d.m.Y'));
@@ -351,11 +359,11 @@ class UserController extends Controller
             FileFacade::delete($tempFilePath);
 
             //save the contract record with a unique number
-            $contract = new Contract([
-                'contract_number' => $contractNumber,
-                'file_id' => $file->id,
-            ]);
-            $contract->save();
+//            $contract = new Contract([
+//                'contract_number' => $contractNumber,
+//                'file_id' => $file->id,
+//            ]);
+//            $contract->save();
 
             // Return the file for download
             return response()->download(storage_path('app/public/' . $file->path), $file->filename);

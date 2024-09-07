@@ -57,11 +57,17 @@
                            v-model:value="userable.registrationAddress"
                            type="text"/>
             </div>
+
             <div class="relative z-0 w-full mb-6 group">
                 <Textarea title="Жалобы" name="complaints" v-model:value="userable.complaints"/>
             </div>
             <div class="relative z-0 w-full mb-6 group">
                 <Textarea title="Комментарий" name="comment" v-model:value="userable.comment"/>
+            </div>
+
+            <div v-if="userable.id"  class="relative z-0 w-full mb-6 group">
+                <TextInput title="Номер договора" name="contractNumber" v-model:value="userable.contractNumber"
+                           type="text"/>
             </div>
 
             <div class="relative z-0 w-full mb-6 group">

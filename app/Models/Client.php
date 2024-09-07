@@ -10,6 +10,8 @@ class Client extends Model
 {
     use HasFactory, SoftDeletes;
 
+    public const CONTRACT_START_NUMBER = 8880100;
+
     protected $guarded = [];
 
     protected $appends = ['category_ids'];

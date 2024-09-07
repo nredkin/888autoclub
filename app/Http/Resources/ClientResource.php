@@ -49,6 +49,7 @@ class ClientResource extends JsonResource
             'factAddress'         => $this->resource->fact_address,
             'director'             => $this->resource->director,
             'bankDetails'         => $this->resource->bank_details,
+            'contract_number'     => $this->resource->contract_number,
 
         ];
     }

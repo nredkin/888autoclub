@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Contract;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -36,6 +37,7 @@ return new class extends Migration
             $table->string('fact_address')->nullable();
             $table->string('director')->nullable();
             $table->text('bank_details')->nullable();
+            $table->integer('contract_number')->nullable()->unique();
             $table->timestamps();
             $table->softDeletes();
         });

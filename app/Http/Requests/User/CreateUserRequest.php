@@ -213,6 +213,12 @@ class CreateUserRequest extends FormRequest
         return isset($userable['bankDetails']) ? $userable['bankDetails'] : '';
     }
 
+    public function getContractNumber()
+    {
+        $userable = $this->input('userable');
+        return isset($userable['contractNumber']) ? $userable['contractNumber'] : '';
+    }
+
 
 
 }
