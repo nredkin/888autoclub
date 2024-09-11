@@ -326,17 +326,17 @@ class UserController extends Controller
 
             if ($clientType == Client::TYPE_JUR) {
                 $clientTypeText = 'Дееспособное ООО';
-                $clientDataText = $user->userable->company_name.', ИНН"'.$user->userable->inn . ', ОГРН"' . $user->userable->reg_number . ', юридический адрес:' . $user->userable->jur_address .
-                    ', фактический адрес"'.$user->userable->fact_address.', директор:'.$user->userable->registration_address.
-                    ', данные банка:'.$user->userable->bank_details;
+                $clientDataText = $user->userable->company_name.', ИНН '.$user->userable->inn . ', ОГРН ' . $user->userable->reg_number . ', юридический адрес: ' . $user->userable->jur_address .
+                    ', фактический адрес: '.$user->userable->fact_address.', директор: '.$user->userable->registration_address.
+                    ', данные банка: '.$user->userable->bank_details;
 
             } else if ($clientType == Client::TYPE_PHYS) {
                 $clientTypeText = 'Дееспособное физическое лицо';
 
                 $clientBirthday = $user->userable->birthday ? Carbon::parse($user->userable->birthday)->format('d.m.Y') : '';
 
-                $clientDataText = $user->userable->getFullName() . ',' . $clientBirthday . ', г.р., паспорт серии' . $user->userable->passport_series . '№' . $user->userable->passport_number .
-                ', выдан'.$user->userable->passport_notes.', зарегистрирован(а) по адресу:'.$user->userable->registration_address.', ИНН'.$user->userable->inn.'к.т.'.$user->userable->phone_number;
+                $clientDataText = $user->userable->getFullName() . ',' . $clientBirthday . ', г.р., паспорт серии ' . $user->userable->passport_series . '№ ' . $user->userable->passport_number .
+                ', выдан '.$user->userable->passport_notes.', зарегистрирован(а) по адресу: '.$user->userable->registration_address.', ИНН '.$user->userable->inn.'к.т. '.$user->userable->phone_number;
 
 
 
