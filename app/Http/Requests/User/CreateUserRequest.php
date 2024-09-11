@@ -183,6 +183,12 @@ class CreateUserRequest extends FormRequest
         return isset($userable['type']) ? $userable['type'] : 0;
     }
 
+    public function getCompanyName(): string
+    {
+        $userable = $this->input('userable');
+        return isset($userable['companyName']) ? $userable['companyName'] : '';
+    }
+
     public function getRegNumber(): string
     {
         $userable = $this->input('userable');

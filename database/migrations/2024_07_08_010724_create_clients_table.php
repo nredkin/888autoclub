@@ -32,6 +32,7 @@ return new class extends Migration
             $table->date('last_check_enforcement')->nullable();
             $table->text('comment')->nullable();
             $table->integer('type')->default(0);
+            $table->string('company_name')->nullable();
             $table->string('reg_number')->nullable();
             $table->string('jur_address')->nullable();
             $table->string('fact_address')->nullable();

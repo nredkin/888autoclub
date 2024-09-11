@@ -82,15 +82,19 @@
 
             <div class="grid md:grid-cols-3 md:gap-6">
                 <div class="relative z-0 w-full mb-6 group">
-                    <TextInput title="ОГРН" name="reg_number" v-model:value="userable.regNumber"
+                    <TextInput title="Наименование компании" name="companyName" v-model:value="userable.companyName"
                                type="text"/>
                 </div>
                 <div class="relative z-0 w-full mb-6 group">
-                    <TextInput title="Юридический адрес" name="jur_address" v-model:value="userable.jurAddress"
+                    <TextInput title="ОГРН" name="regNumber" v-model:value="userable.regNumber"
                                type="text"/>
                 </div>
                 <div class="relative z-0 w-full mb-6 group">
-                    <TextInput title="Фактический адрес" name="fact_address" v-model:value="userable.factAddress"
+                    <TextInput title="Юридический адрес" name="jurAddress" v-model:value="userable.jurAddress"
+                               type="text"/>
+                </div>
+                <div class="relative z-0 w-full mb-6 group">
+                    <TextInput title="Фактический адрес" name="factAddress" v-model:value="userable.factAddress"
                                type="text"/>
                 </div>
                 <div class="relative z-0 w-full mb-6 group">
@@ -98,7 +102,7 @@
                                type="text"/>
                 </div>
                 <div class="relative z-0 w-full mb-6 group">
-                    <Textarea title="Данные банка" name="bank_details" v-model:value="userable.bankDetails"/>
+                    <Textarea title="Данные банка" name="bankDetails" v-model:value="userable.bankDetails"/>
                 </div>
             </div>
 

@@ -22,13 +22,14 @@ class OperationController extends Controller
     {
         $query = $request->get('query');
 
-        // Start building the query with relationships
-        $operationsQuery = Operation::with('user.userable', 'car');
+        $operationsQuery = Operation::with(['user.userable', 'car'])
+            ->whereHas('user', function($query) {
+                $query->where('userable_type', 'App\Models\Client');
+            });
 
         // Apply filters if they exist
         if ($query && isset($query['filters'])) {
             $filters = $query['filters'];
-            logger($filters);
 
             // Filter by branch_id if 'branches' filter is present
             if (isset($filters['branches'])) {
@@ -59,6 +60,17 @@ class OperationController extends Controller
             if (isset($filters['client_balance_change'])) {
                 $operationsQuery->where('client_balance_change', '=', $filters['client_balance_change']);
             }
+
+            if (isset($filters['contract_number'])) {
+                $operationsQuery->whereHas('user', function($query) use ($filters) {
+                    $query->where('userable_type', 'App\Models\Client')
+                        ->whereHasMorph('userable', [\App\Models\Client::class], function($q2) use ($filters) {
+                            $q2->where('contract_number', $filters['contract_number']);
+                        });
+                });
+            }
+
+
         }
 
         // Execute the query

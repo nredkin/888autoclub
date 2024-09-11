@@ -42,7 +42,10 @@
                             </div>
 
                         </div>
-                        <div class="grid md:grid-cols-4 md:gap-6 mt-4">
+                        <div class="grid md:grid-cols-5 md:gap-6 mt-4">
+                            <div class="relative z-0 group rounded-full">
+                                <TextInput title="Номер договора" v-model:value="query.filters.contract_number" type="text"/>
+                            </div>
                             <div class="relative z-0 group rounded-full">
                                 <my-select title="Тип операции" v-model:value="query.filters.type" :values="types"/>
                             </div>

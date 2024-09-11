@@ -116,6 +116,7 @@ class UserController extends Controller
                 'last_check_fssp' => $request->getLastCheckFssp(),
                 'last_check_enforcement' => $request->getLastCheckEnforcement(),
                 'type' => $request->getType(),
+                'company_name' => $request->getCompanyName(),
                 'reg_number' => $request->getRegNumber(),
                 'jur_address' => $request->getJurAddress(),
                 'fact_address' => $request->getFactAddress(),
@@ -209,6 +210,7 @@ class UserController extends Controller
                     'last_check_fssp' => $request->getLastCheckFssp(),
                     'last_check_enforcement' => $request->getLastCheckEnforcement(),
                     'type' => $request->getType(),
+                    'company_name' => $request->getCompanyName(),
                     'reg_number' => $request->getRegNumber(),
                     'jur_address' => $request->getJurAddress(),
                     'fact_address' => $request->getFactAddress(),
@@ -309,6 +311,8 @@ class UserController extends Controller
             return $this->error('Пользователь не найден');
         }
 
+        $clientType = $user->userable->type;
+
         $contractTemplateName =  match ($type) {
             'without_driver' => 'contract_without_driver.docx',
             'with_driver' => 'contract_with_driver.docx',
@@ -320,19 +324,34 @@ class UserController extends Controller
         if ($this->getUser()->isAdmin()) {
             $template = new TemplateProcessor(storage_path('templates/'.$contractTemplateName ));
 
+            if ($clientType == Client::TYPE_JUR) {
+                $clientTypeText = 'Дееспособное ООО';
+                $clientDataText = $user->userable->company_name.', ИНН"'.$user->userable->inn . ', ОГРН"' . $user->userable->reg_number . ', юридический адрес:' . $user->userable->jur_address .
+                    ', фактический адрес"'.$user->userable->fact_address.', директор:'.$user->userable->registration_address.
+                    ', данные банка:'.$user->userable->bank_details;
+
+            } else if ($clientType == Client::TYPE_PHYS) {
+                $clientTypeText = 'Дееспособное физическое лицо';
+
+                $clientBirthday = $user->userable->birthday ? Carbon::parse($user->userable->birthday)->format('d.m.Y') : '';
+
+                $clientDataText = $user->userable->getFullName() . ',' . $clientBirthday . ', г.р., паспорт серии' . $user->userable->passport_series . '№' . $user->userable->passport_number .
+                ', выдан'.$user->userable->passport_notes.', зарегистрирован(а) по адресу:'.$user->userable->registration_address.', ИНН'.$user->userable->inn.'к.т.'.$user->userable->phone_number;
+
+
+
+            } else {
+                return $this->error('Неизвестный тип пользователя');
+            }
+
+
             $contractNumber = (int)$user->userable->value('contract_number');
 
             $template->setValue('contractNumber', $contractNumber);
             $template->setValue('contractDate', Carbon::now()->format('d.m.Y'));
 
-            $template->setValue('clientFullName', $user->userable->getFullName());
-            $template->setValue('clientBirthday', $user->userable->birthday ? Carbon::parse($user->userable->birthday)->format('d.m.Y') : '');
-            $template->setValue('clientPassportSeries', $user->userable->passport_series);
-            $template->setValue('clientPassportNumber', $user->userable->passport_number);
-            $template->setValue('clientPassportNotes', $user->userable->passport_notes);
-            $template->setValue('clientRegistrationAddress', $user->userable->registration_address);
-            $template->setValue('clientInn', $user->userable->inn);
-            $template->setValue('clientPhone', $user->userable->phone_number);
+            $template->setValue('clientType', $clientTypeText);
+            $template->setValue('clientData', $clientDataText);
 
             // Ensure the directory exists
             $tempDirPath = storage_path('app/public/temp');

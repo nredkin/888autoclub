@@ -12,6 +12,9 @@ class Client extends Model
 
     public const CONTRACT_START_NUMBER = 8880100;
 
+    public const TYPE_PHYS = 0;
+    public const TYPE_JUR = 1;
+
     protected $guarded = [];
 
     protected $appends = ['category_ids'];
