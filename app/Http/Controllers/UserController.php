@@ -216,7 +216,7 @@ class UserController extends Controller
                     'fact_address' => $request->getFactAddress(),
                     'director' => $request->getDirector(),
                     'bank_details' => $request->getBankDetails(),
-                    'contract_number' => $request->getContractNumber(),
+                    'contract_number' => (int)$request->getContractNumber() === 0 ? NULL : $request->getContractNumber(),
                 ]);
 
                 // Update categories if provided
@@ -352,6 +352,8 @@ class UserController extends Controller
 
             $template->setValue('clientType', $clientTypeText);
             $template->setValue('clientData', $clientDataText);
+
+            $template->setValue('clientPhone', $user->userable->phone_number);
 
             // Ensure the directory exists
             $tempDirPath = storage_path('app/public/temp');
